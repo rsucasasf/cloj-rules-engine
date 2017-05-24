@@ -2,6 +2,24 @@
 
 **cloj-rules-engine** is a rules engine written in Clojure and designed to work with Java.
 
+-----------------------
+
+[Description](#description)
+
+[Prerequisites](#prerequisites)
+
+[Usage](#usage)
+
+[License](#license)
+
+-----------------------
+
+## Description
+
+....
+
+-----------------------
+
 ## Prerequisites
 
 1. Java version 8
@@ -10,9 +28,16 @@
 
 [leiningen]: https://github.com/technomancy/leiningen
 
+-----------------------
+
 ## Usage
 
-FIXME
+### From Clojure
+
+
+### From Java
+
+-----------------------
 
 ## License
 
