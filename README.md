@@ -1,6 +1,6 @@
 # cloj-rules-engine
 
-A Clojure library designed to work as a rules engine.
+**cloj-rules-engine** is a rules engine written in Clojure and designed to work with Java.
 
 ## Prerequisites
 
@@ -18,4 +18,4 @@ FIXME
 
 Copyright © 2017 Roi Sucasas
 
-Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
+Distributed under the Eclipse Public License either version 1.0 or any later version.
