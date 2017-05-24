@@ -32,15 +32,3 @@
   (remove nil?
     (for [[k v] rules]
       (eval (read-string (replace-map v m-values))))))
-
-
-
-
-
-(def map-values {"a" "5", "b" "46", "c" "1"})
-(def rules-map {:RULE_1 {:desc "Rule description: 'launch' action-A if 'a' is lower than 10, and if 'b' is greater than 50, and if c < 1.25",
-          :actions ["action-A"],
-          :cond "(and (< a 10) (> b 50) (< c 1.25))"},
- :RULE_2 {:desc "Rule description: 'launch' action-B and action-C if ...",
-          :actions ["action-B" "action-C"],
-          :cond "(> a 10)"}})
