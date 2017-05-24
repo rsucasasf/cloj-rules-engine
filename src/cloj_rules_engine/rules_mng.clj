@@ -1,6 +1,7 @@
 (ns cloj-rules-engine.rules-mng
   (:require [cloj-rules-engine.conds-eval :as ce])
-  (:use [cloj-rules-engine.common]))
+  (:use [cloj-rules-engine.common]
+        [cloj-rules-engine.logs]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PRIVATE FUNCTIONS - VARIABLES - ATOMS - DEFS:
@@ -33,14 +34,11 @@
 ;; FUNCTION: get-rules-actions
 (defn get-rules-actions ""
   []
-  (java.util.ArrayList.
-    (remove nil?
-      (distinct
-        (apply concat (for [x (ce/eval-conditions (ce/gen-conds-map @rules-map) @map-values)]
-                        (get-in (deref rules-map) [x :actions])))))))
-
-
-(initialize "rules.clj")
-(deref rules-map)
-(deref map-values)
-(get-rules-actions)
+  (try
+    (java.util.ArrayList.
+      (remove nil?
+        (distinct
+          (apply concat (for [x (ce/eval-conditions (ce/gen-conds-map @rules-map) @map-values)]
+                          (get-in (deref rules-map) [x :actions]))))))
+    (catch Exception e
+      (do (log-exception e) nil))))
