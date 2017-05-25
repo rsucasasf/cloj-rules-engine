@@ -30,7 +30,7 @@
   (common/set-field this :rules (common/read-content rules-file)))
 
 ;; FUNCTION: updateMapValues
-(defn -updateMapValues ""
+(defn -updateMapValues "Updates values-map content"
   [this m]
   (common/set-field this :values m))
 

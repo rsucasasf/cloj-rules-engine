@@ -8,9 +8,11 @@
 ;; FUNCTION: replace-map
 ;; Given an input string and a hash-map, returns a new string with all keys in map found in input replaced with the value of the key
 (defn- replace-map "Returns a new string with all keys in map 'm' found in input string 's' replaced with the value of the key"
-  [s m]
-  (clojure.string/replace s
-              (re-pattern (apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys m))))) m))
+  [txt replacement-map]
+  (clojure.string/replace ;; (replace txt match replacement)
+    txt
+    (re-pattern (apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys replacement-map)))))
+    replacement-map))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PUBLIC FUNCTIONS:
@@ -20,7 +22,7 @@
   [rules]
   (into {}
     (for [x (keys rules)]
-      {(keyword (uuid)) (str "(when " (get-in rules [x :cond]) " " x "))")})))
+      {(keyword (uuid)) (str "(when " (get-in rules [x :cond]) " " x ")")})))
 
 ;; FUNCTION: eval-conditions
 (defn eval-conditions ""
