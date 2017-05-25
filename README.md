@@ -48,6 +48,14 @@
 ### Clojure
 [Readable Clojure](http://tonsky.me/blog/readable-clojure/) : "*This is how you can make Clojure code more pleasant to work with*"
 
+###Travis
+
+[Getting Started](https://docs.travis-ci.com/user/getting-started/)
+
+[Customizing the Build](https://docs.travis-ci.com/user/customizing-the-build/)
+
+[Building a Clojure project](https://docs.travis-ci.com/user/languages/clojure/)
+
 ### Integration with Travis
 
 1. Enable github project in [Travis](https://travis-ci.org/profile) (entering as the github user)
