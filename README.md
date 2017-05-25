@@ -48,7 +48,7 @@
 ### Clojure
 [Readable Clojure](http://tonsky.me/blog/readable-clojure/) : "*This is how you can make Clojure code more pleasant to work with*"
 
-###Travis
+### Travis
 
 [Getting Started](https://docs.travis-ci.com/user/getting-started/)
 
