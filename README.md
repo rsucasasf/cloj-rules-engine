@@ -10,6 +10,7 @@
 **Table of Contents**
 
 - [Description](#description)
+  - Things to do / limitations
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
 - [Mini tutorials and links](#mini-tutorials-and-links)
@@ -24,6 +25,12 @@
 ## Description
 
 ....
+
+### Things to do / limitations
+
+[ ] ....
+
+[ ] ....
 
 -----------------------
 
@@ -92,4 +99,6 @@ Other badges from [shields.io](https://shields.io/)
 
 ## License
 
-Distributed under the Eclipse Public License either version 1.0 or any later version.
+Copyright © 2017
+
+Distributed under the Eclipse Public License, the same as Clojure.
