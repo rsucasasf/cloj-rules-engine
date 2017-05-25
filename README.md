@@ -1,5 +1,7 @@
 # cloj-rules-engine
 
+[![Build Status](https://travis-ci.org/rsucasasf/cloj-rules-engine.svg?branch=master)](https://travis-ci.org/rsucasasf/cloj-rules-engine)
+
 **cloj-rules-engine** is a very simple rules engine written in Clojure and designed to work with Java.
 
 -----------------------
