@@ -7,15 +7,17 @@
 
 -----------------------
 
-[Description](#description)
+**Table of Contents**
 
-[Prerequisites](#prerequisites)
-
-[Usage](#usage)
-
-[Mini tutorials and links - Clojure, Travis](#mini-tutorials-and-links)
-
-[License](#license)
+- [Description](#description)
+- [Prerequisites](#prerequisites)
+- [Usage](#usage)
+- [Mini tutorials and links](#mini-tutorials-and-links)
+  - Clojure
+  - Travis
+  - Integration with Travis
+  - Markdown tips and links
+- [License](#license)
 
 -----------------------
 
@@ -49,7 +51,7 @@
 ### Clojure
 [Readable Clojure](http://tonsky.me/blog/readable-clojure/) : "*This is how you can make Clojure code more pleasant to work with*"
 
-[Deploying to Maven Central](https://github.com/technomancy/leiningen/blob/master/doc/DEPLOY.md)
+[Deploying to Maven Central](DEPLOY.md), taken from https://github.com/technomancy/leiningen
 
 ### Travis
 
@@ -80,7 +82,7 @@ script:
 [![Build Status](https://travis-ci.org/rsucasasf/cloj-rules-engine.svg?branch=master)](https://travis-ci.org/rsucasasf/cloj-rules-engine)
 ```
 
-### README.md tips and links
+### Markdown tips and links
 
 [Markdown License badges](https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba)
 
