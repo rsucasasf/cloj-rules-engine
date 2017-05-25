@@ -39,8 +39,14 @@
 
 -----------------------
 
-## License
+## Clojure
 
-Copyright © 2017
+[Readable Clojure](http://tonsky.me/blog/readable-clojure/) : "*This is how you can make Clojure code more pleasant to work with*"
+
+
+
+-----------------------
+
+## License
 
 Distributed under the Eclipse Public License either version 1.0 or any later version.

@@ -1,5 +1,5 @@
 (ns cloj-rules-engine.common
-  (:use [cloj-rules-engine.logs]))
+  (:require [cloj-rules-engine.logs :as logs]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -8,7 +8,7 @@
   [path-file]
   (try (read-string (slurp path-file))
     (catch Exception e
-      (do (log-exception e) nil))))
+      (do (logs/log-exception e) nil))))
 
 ;; FUNCTION: get-resource
 (defn- get-resource "get file or nil if error"
@@ -17,7 +17,7 @@
     (when path
       (-> (Thread/currentThread) .getContextClassLoader (.getResource path)))
     (catch Exception e
-      (do (log-exception e) nil))))
+      (do (logs/log-exception e) nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PUBLIC FUNCTIONS:
