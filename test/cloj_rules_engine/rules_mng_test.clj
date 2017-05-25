@@ -6,9 +6,9 @@
   (testing "It's ok."
     (is (= 1 1))))
 
-(deftest b-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+;(deftest b-test
+;  (testing "FIXME, I fail."
+;    (is (= 0 1))))
 
 ;(run-tests 'cloj-rules-engine.rules-mng-test)
 ;(run-all-tests)
