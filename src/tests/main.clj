@@ -13,3 +13,6 @@
 (reset! rules-map (common/read-content "rules.clj"))
 (deref rules-map)
 (deref values-map)
+
+(map #(java.util.regex.Pattern/quote %) (keys @values-map))
+(apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys @values-map))))
