@@ -22,10 +22,12 @@
 ;; 'rules-file': rules file
 (defn initialize "Intializes rules-map"
   [rules-file]
-  (do
-    (reset! *rules-map (common/read-content rules-file))
-    (reset! *conds-map (conds-eval/gen-conds-map @*rules-map))
-    true))
+  (if-let [rules-map-content (common/read-content rules-file)] ; (if-let [value nil] value "Not found")
+    (do
+      (reset! *rules-map (common/read-content rules-file))
+      (reset! *conds-map (conds-eval/gen-conds-map @*rules-map))
+      true)
+    false))
 
 ;; FUNCTION: update-map-facts
 (defn update-map-facts "Updates values-map (facts) content"
@@ -59,7 +61,7 @@
       (do (logs/log-exception e) nil))))
 
 ;; FUNCTION:
-(defn get-fired-rules ""
+(defn get-fired-rules "Returns an ArrayList of the fired rules"
   []
   (java.util.ArrayList.
     (remove nil?
@@ -70,7 +72,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (initialize "rules.clj")
 
-(update-map-facts {"#A" "14"})
+;(update-map-facts {"#A" "14"})
 
 ;(deref *rules-map)
 ;(deref *values-map)
@@ -79,5 +81,5 @@
 
 
 
-(get-rules-actions)
-(get-fired-rules)
+;(get-rules-actions)
+;(get-fired-rules)

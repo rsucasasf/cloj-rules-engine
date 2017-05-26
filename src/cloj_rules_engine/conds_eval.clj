@@ -57,20 +57,21 @@
 ;; PUBLIC FUNCTIONS:
 
 ;; FUNCTION: gen-conds-map
-(defn gen-conds-map ""
+(defn gen-conds-map "Generates a conditions map, with a random key and the clojure condition that will
+                    be executed (after replacing params)"
   [rules]
   (into {}
     (for [x (keys rules)]
       {(keyword (uuid)) (str "(when " (get-in rules [x :cond]) " " x ")")})))
 
 ;; FUNCTION: eval-conditions
-(defn eval-conditions ""
+(defn eval-conditions "Evaluates conditions"
   [rules m-values]
   (remove nil?
     (for [[k v] rules]
       (eval (read-string (replace-map v m-values))))))
 
 ;; FUNCTION: get-current-conds-map
-(defn get-current-conds-map ""
+(defn get-current-conds-map "Returns a conditions map ready for the current facts (and removing entries of missing facts / params)"
   [conds-map values-map]
   (create-current-conds-map conds-map (get-keys-to-remove (get-map-params-cond-map-keys conds-map) values-map)))

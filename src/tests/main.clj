@@ -3,16 +3,16 @@
 
 
 ;; rules map
-(def ^:private rules-map (atom {}))
-
+;(def ^:private rules-map (atom {}))
+;
 ;; values-map
-(def ^:private values-map (atom {"A" "15"
-                                 "B" "46"
-                                 "C" "11"}))
-
-(reset! rules-map (common/read-content "rules.clj"))
-(deref rules-map)
-(deref values-map)
-
-(map #(java.util.regex.Pattern/quote %) (keys @values-map))
-(apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys @values-map))))
+;(def ^:private values-map (atom {"A" "15"
+;                                 "B" "46"
+;                                 "C" "11"}))
+;
+;(reset! rules-map (common/read-content "rules.clj"))
+;(deref rules-map)
+;(deref values-map)
+;
+;(map #(java.util.regex.Pattern/quote %) (keys @values-map))
+;(apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys @values-map))))
