@@ -16,19 +16,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; FUNCTION: gen-rules-map-with-fired-to-false
-(defn- gen-rules-map-with-fired-to-false ""
-  [rules-map]
-  (loop [m-res {}
-         m-rul rules-map]
-    (if (= 0 (count m-rul))
-      m-res
-      (recur
-        (assoc m-res (first (first m-rul)) (assoc (second (first m-rul)) :fired false))
-        (rest m-rul)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; FUNCTION:-init
 ;; Set defaults
 (defn -init []
@@ -56,26 +43,11 @@
     (common/set-field this :values m)
     ; creates new map with fired attribute set to false
     (common/set-field this :rules
-      (gen-rules-map-with-fired-to-false (common/get-field this :rules)))
+      (common/add-new-attr-to-map (common/get-field this :rules) :fired false))
     true))
 
 ;; FUNCTION: getRulesActions
 ;; Returns an ArrayList of Strings, where each of them is an action identifier (:actions ["id" ] ===> "id")
-;(defn -getRulesActions "Returns an ArrayList of Strings, where each of the items is an action identifier"
-;  [this]
-;  (try
-;    (java.util.ArrayList.
-;      (remove nil?
-;        (distinct
-;          (let [rules-map   (common/get-field this :rules)
-;                values-map  (common/get-field this :values)]
-;            (apply  concat
-;                    (for [x (conds-eval/eval-conditions (conds-eval/gen-conds-map rules-map) values-map)]
-;                      (get-in rules-map [x :actions])))))))
-;    (catch Exception e
-;      (do (logs/log-exception e) nil))))
-
-
 (defn -getRulesActions "Returns an ArrayList of Strings, where each of the items is an action identifier"
   [this]
   (try
@@ -91,33 +63,16 @@
                               values-map)]
                       (if-not (get-in rules-map [x :fired])
                         (do
-                          ;(swap! *rules-map assoc-in [x :fired] true) ; rule fired
+                          ; rule fired
+                          (common/set-field this :rules
+                            (common/update-value-in-map rules-map x :fired true))
+                          ;; get action(s)
                           (get-in rules-map [x :actions]))
                         (do
                           (logs/log-warning "Rule [" x "] already fired")
                           nil))))))))
     (catch Exception e
       (do (logs/log-exception e) nil))))
-
-;; FUNCTION: get-rules-actions
-;(defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
-;  []
-;  (try
-;    (java.util.ArrayList.
-;      (remove nil?
-;        (distinct
-;          (apply concat (for [x (conds-eval/eval-conditions
-;                                  (conds-eval/get-current-conds-map @*conds-map @*values-map)
-;                                  @*values-map)]
-;                          (if-not (get-in @*rules-map [x :fired])
-;                            (do
-;                              (swap! *rules-map assoc-in [x :fired] true) ; rule fired
-;                              (get-in @*rules-map [x :actions]))
-;                            (do
-;                              (logs/log-warning "Rule [" x "] already fired")
-;                              nil)))))))
-;    (catch Exception e
-;      (do (logs/log-exception e) nil))))
 
 ;; FUNCTION: getFiredRules
 (defn -getFiredRules "Returns an ArrayList of the fired rules"

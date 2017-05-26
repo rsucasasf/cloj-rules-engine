@@ -20,7 +20,6 @@
       (do (logs/log-exception e) nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; PUBLIC FUNCTIONS:
 
 ;; FUNCTION: read-content
 ;; Examples: (read-content "rules.clj") (read-content "C://ABSOLUTE_PATH/rules.clj")
@@ -44,3 +43,33 @@
 (defn get-field "function to safely get the field content"
   [this key]
   (@(.state this) key))
+
+;; MAPS
+
+;; FUNCTION: add-new-attr-to-map
+;; Example: (add-new-attr-to-map {:id1 {:val 1} :id2 {:val 3}} :xy "wo")
+(defn add-new-attr-to-map "Creates a copy an initial map and adds a new attribute to all elements of this copy"
+  [initial-map new-attr attr-value]
+  (loop [m-res {}
+         m-ini initial-map]
+    (if (= 0 (count m-ini))
+      m-res
+      (recur
+        (assoc m-res (first (first m-ini)) (assoc (second (first m-ini)) new-attr attr-value))
+        (rest m-ini)))))
+
+;; FUNCTION: update-value-in-map
+;; Example: (update-value-in-map (gen-initial-map-with-fired-to-false {:id1 {:val 1} :id2 {:val 3}}) :id1 :fired true)
+(defn update-value-in-map "Creates a copy an initial map and updates a value"
+  [initial-map key-to-update sub-key-to-update new-value]
+  (loop [m-res {}
+         m-ini initial-map]
+    (if (= 0 (count m-ini))
+      m-res
+      (if (= (first (first m-ini)) key-to-update)
+        (recur
+          (assoc m-res (first (first m-ini)) (assoc (second (first m-ini)) sub-key-to-update new-value))
+          (rest m-ini))
+        (recur
+          (assoc m-res (first (first m-ini)) (second (first m-ini)))
+          (rest m-ini))))))
