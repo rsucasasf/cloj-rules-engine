@@ -4,8 +4,6 @@
             [cloj-rules-engine.logs :as logs]
             [cloj-rules-engine.common :as common]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; rules map
 (def ^:private *rules-map (atom {}))
 
@@ -16,15 +14,14 @@
 (def ^:private *values-map (atom {}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; PUBLIC FUNCTIONS:
 
 ;; FUNCTION: initialize
 ;; 'rules-file': rules file
-(defn initialize "Intializes rules-map"
+(defn initialize "Intializes rules and conditions map"
   [rules-file]
   (if-let [rules-map-content (common/read-content rules-file)] ; (if-let [value nil] value "Not found")
     (do
-      (reset! *rules-map (common/read-content rules-file))
+      (reset! *rules-map rules-map-content)
       (reset! *conds-map (conds-eval/gen-conds-map @*rules-map))
       true)
     false))
@@ -60,7 +57,7 @@
     (catch Exception e
       (do (logs/log-exception e) nil))))
 
-;; FUNCTION:
+;; FUNCTION: get-fired-rules
 (defn get-fired-rules "Returns an ArrayList of the fired rules"
   []
   (java.util.ArrayList.
@@ -77,7 +74,6 @@
 ;(deref *rules-map)
 ;(deref *values-map)
 ;(deref *conds-map)
-
 
 
 
