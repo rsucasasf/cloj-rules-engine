@@ -1,4 +1,5 @@
-(ns cloj-rules-engine.conds-eval)
+(ns cloj-rules-engine.conds-eval
+  (:require [clojure.set :as clojure.set]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
