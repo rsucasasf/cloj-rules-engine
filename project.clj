@@ -10,7 +10,7 @@
                                javax.jms/jms
                                com.sun.jdmk/jmxtools
                                com.sun.jmx/jmxri]]
-                 [proto-repl "0.3.1"]]
+                 [proto-repl "0.3.1"]]                  ; MIT 
   :target-path "target/%s"
   :profiles {
     :uberjar {:aot :all}

@@ -6,7 +6,7 @@
   ;; RULE_1
   :RULE_1 {:cond "(and (< #A 10) (> #B 50))"
            :actions ["action-A"]
-           :desc "Rule description: 'launch' action-A if 'a' is lower than 10, and if 'b' is greater than 50, and if c < 1.25"}
+           :desc "Rule description: 'launch' action-A if 'a' is lower than 10 and if 'b' is greater than 50"}
   ;; RULE_2
   :RULE_2 {:cond "(> #A 10)"
            :actions ["action-B" "action-C"]
