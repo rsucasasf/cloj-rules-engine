@@ -2,7 +2,8 @@
   "Rules-engine library used by Java"
   (:require [cloj-rules-engine.conds-eval :as conds-eval]
             [cloj-rules-engine.logs :as logs]
-            [cloj-rules-engine.common :as common])
+            [cloj-rules-engine.common :as common]
+            [clojure.data.json :as json])
   (:gen-class
     :name cloj_rules_engine.ClojRules
     :state state
@@ -10,6 +11,7 @@
     :prefix "-"
     :main false
     :methods [[initialize [String] boolean]
+              [initializeFromJson [String] boolean]
               [updateMapFacts [clojure.lang.PersistentArrayMap] void]
               [getRulesActions [] java.util.ArrayList]
               [getFiredRules [] java.util.ArrayList]]))
@@ -34,6 +36,18 @@
       (common/set-field this :conds (conds-eval/gen-conds-map (common/get-field this :rules)))
       true)
     false))
+
+;; FUNCTION: initialize-from-json
+;; (json/read-str json-map-str :key-fn keyword)
+(defn -initializeFromJson "Intializes rules and conditions map from json string"
+  [json-map-str]
+  (try
+    (do
+      (common/set-field this :rules (json/read-str json-map-str :key-fn keyword))
+      (common/set-field this :conds (conds-eval/gen-conds-map (common/get-field this :rules)))
+      true)
+    (catch Exception e
+      (do (logs/log-exception e) false))))
 
 ;; FUNCTION: updateMapFacts
 (defn -updateMapFacts "Updates values-map (facts) content"

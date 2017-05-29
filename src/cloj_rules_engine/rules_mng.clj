@@ -2,7 +2,8 @@
   "Rules-engine functions"
   (:require [cloj-rules-engine.conds-eval :as conds-eval]
             [cloj-rules-engine.logs :as logs]
-            [cloj-rules-engine.common :as common]))
+            [cloj-rules-engine.common :as common]
+            [clojure.data.json :as json]))
 
 ;; rules map
 (def ^:private *rules-map (atom {}))
@@ -25,6 +26,18 @@
       (reset! *conds-map (conds-eval/gen-conds-map @*rules-map))
       true)
     false))
+
+;; FUNCTION: initialize-from-json
+;; (json/read-str json-map-str :key-fn keyword)
+(defn initialize-from-json "Intializes rules and conditions map from json string"
+  [json-map-str]
+  (try
+    (do
+      (reset! *rules-map (json/read-str json-map-str :key-fn keyword))
+      (reset! *conds-map (conds-eval/gen-conds-map @*rules-map))
+      true)
+    (catch Exception e
+      (do (logs/log-exception e) false))))
 
 ;; FUNCTION: update-map-facts
 (defn update-map-facts "Updates values-map (facts) content"
@@ -65,17 +78,3 @@
       (for [[k v] (deref *rules-map)]
         (when (get-in @*rules-map [k :fired])
           {k v})))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;(initialize "rules.clj")
-
-;(update-map-facts {"#A" "14"})
-
-;(deref *rules-map)
-;(deref *values-map)
-;(deref *conds-map)
-
-
-
-;(get-rules-actions)
-;(get-fired-rules)

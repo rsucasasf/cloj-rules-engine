@@ -10,7 +10,8 @@
                                javax.jms/jms
                                com.sun.jdmk/jmxtools
                                com.sun.jmx/jmxri]]
-                 [proto-repl "0.3.1"]]                  ; MIT 
+                 [org.clojure/data.json "0.2.6"]       ; Eclipse Public License - Version 1.0  https://github.com/clojure/data.json
+                 [proto-repl "0.3.1"]]                  ; MIT
   :target-path "target/%s"
   :profiles {
     :uberjar {:aot :all}

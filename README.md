@@ -84,6 +84,8 @@ clrules.updateMapFacts(facts_map);
 
   - **get-fired-rules**
 
+  - **initialize-from-json**
+
 ### Things to do / limitations
 
 - When creating the set of rules, use a hash for each of the parameters (i.e. *#A* and *#B*):
@@ -97,7 +99,7 @@ clrules.updateMapFacts(facts_map);
 
 - Conditions are clojure expressions surrounded by quotes.
 
-- If a rule is evaluated and 'fired', it won't be fired until facts are updated. In order to get all the 'fired' rules, call the **get-fired-rules** method / function 
+- If a rule is evaluated and 'fired', it won't be fired until facts are updated. In order to get all the 'fired' rules, call the **get-fired-rules** method / function
 
 -----------------------
 
