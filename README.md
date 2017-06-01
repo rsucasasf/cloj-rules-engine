@@ -221,20 +221,24 @@ Other badges from [shields.io](https://shields.io/)
 
 - Create jar:
 
-> lein uberjar
+```bash
+lein uberjar
+```
 
 - Create artifact in local repo:
 
-> cd target
+```bash
+cd target
 
-> cd uberjar
+cd uberjar
 
-> mvn install:install-file -Dfile=cloj-rules-engine-0.1.1-standalone.jar -DgroupId=cloj-libs -DartifactId=cloj-rules-engine -Dversion=0.1.1 -Dpackaging=jar
+mvn install:install-file -Dfile=cloj-rules-engine-0.1.1-standalone.jar -DgroupId=cloj-libs -DartifactId=cloj-rules-engine -Dversion=0.1.1 -Dpackaging=jar
+```
 
 - Use in a Java project:
     - Add to maven dependencies:
 
-```
+```xml
 <dependency>
   <groupId>cloj-libs</groupId>
   <artifactId>cloj-rules-engine</artifactId>
