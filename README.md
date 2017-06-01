@@ -31,7 +31,7 @@
 
 - Rules are expressed in a simple and easy to read Clojure format ([clojure *maps*](http://www.deadcoderising.com/2015-04-clojure-basics-dealing-wit-maps/))
 
-```
+```clojure
 {
   :RULE_1 {:cond "(and (< #A 10) (> #B 50))"
            :actions ["action-1"]}
@@ -41,11 +41,11 @@
 
 - Facts can be expressed via clojure maps (Clojure) or via PersistentArrayMap objects (Java):
 
-```
+```clojure
 (update-map-facts {"#A" "14"})
 ```
 
-```
+```java
 PersistentArrayMap facts_map = new PersistentArrayMap(new Object[] {
 		"#A", "14"
 	});
@@ -56,29 +56,32 @@ clrules.updateMapFacts(facts_map);
 
 - Main methods:
   - **initialize** loads rules map from absolute or relative path. Returns *true* if everything is okay.
-  ```
+
+  ```clojure
   (initialize "rules.clj")
   ```
 
-  ```
+  ```java
   clrules.initialize("rules.clj");
   ```
 
   - **update-map-facts** update / initialize facts
-  ```
+
+  ```clojure
   (update-map-facts {"#A" "14"})
   ```
 
-  ```
+  ```java
   clrules.updateMapFacts(facts_map);
   ```
 
   - **get-rules-actions** evaluates rules based on current facts, and return a list (String) of 'fired' actions
-  ```
+
+  ```clojure
   (get-rules-actions)
   ```
 
-  ```
+  ```java
   clrules.getRulesActions();
   ```
 
@@ -88,12 +91,14 @@ clrules.updateMapFacts(facts_map);
 
 ### Things to do / limitations
 
-- When creating the set of rules, use a hash for each of the parameters (i.e. *#A* and *#B*):
+- When creating the set of rules, use a hash for each of the parameters / facts (i.e. *#A* and *#B*):
 
-```
+```clojure
 :RULE_1 {:cond "(and (< #A 10) (> #B 50))"
          :actions ["action-1"]}
 ```
+
+- For now, facts can only be numbers. No string values allowed.
 
 - The set of rules are defined using Clojure syntax => Clojure maps
 
@@ -117,7 +122,7 @@ clrules.updateMapFacts(facts_map);
 
 First, define a set of rules (*"rules.clj"*):
 
-```
+```clojure
 {
   ;; RULE_1
   :RULE_1 {:cond "(and (< #A 10) (> #B 50))"
@@ -133,7 +138,7 @@ And then, ...
 
 ### From Clojure
 
-```
+```clojure
 (initialize "rules.clj")
 
 (update-map-facts {"#A" "14"})
@@ -149,7 +154,7 @@ And then, ...
 
 2. Java code to use the library:
 
-```
+```java
 cloj_rules_engine.ClojRules clrules = new cloj_rules_engine.ClojRules();
 ...
 clrules.initialize("rules.clj");
@@ -190,7 +195,7 @@ clrules.getFiredRules();  // get fired rules in json format
 
 2. Add a *.travis.yml* file in the project's root folder with the following content:
 
-```
+```yaml
 language: clojure
 
 script:
