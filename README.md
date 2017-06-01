@@ -101,7 +101,7 @@ clrules.updateMapFacts(facts_map);
 
 ### Things to do / limitations
 
-- (**RULES DEFINITION**) The set of rules are defined using Clojure syntax => Clojure maps
+- (**RULES DEFINITION**) The set of rules are defined using Clojure syntax => Clojure maps. Parameters / facts have the following formatt: #*FACT_NAME*
 
 - (**RULES DEFINITION**) Conditions are clojure expressions surrounded by quotes.
 
@@ -163,6 +163,7 @@ First, define a set of rules (*"rules.clj"*):
            :desc "Rule description: 'launch' action-2 and action-C if ..."}
 }
 ```
+
 And then, ...
 
 ### From Clojure
@@ -175,6 +176,15 @@ And then, ...
 (get-rules-actions)
 
 (get-fired-rules)
+```
+
+Or...
+
+```clojure
+(if (initialize "rules.clj")
+  (when (update-map-facts {"#A" "15", "#B" 13, "#D" "\"goldenaxe\""})
+    (get-rules-actions))
+  false)
 ```
 
 ### From Java

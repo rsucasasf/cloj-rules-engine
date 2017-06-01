@@ -43,9 +43,7 @@
 (defn update-map-facts "Updates values-map (facts) content"
   [m]
   (if-not (every? common/valid? m)
-    (do
-      (logs/log-warning "Fact map values are not valid")
-      false)
+    (do (logs/log-warning "Fact map's values are not valid") false)
     (do
       ; reset / update facts
       (reset! *values-map m)
@@ -84,7 +82,7 @@
           {k v})))))
 
 ;; TESTS
-(if (initialize "rules.clj")
-  (when (update-map-facts {"#A" "15", "#B" 13, "#D" "\"goldenaxe\""})
-    (get-rules-actions))
-  false)
+;(if (initialize "rules.clj")
+;  (when (update-map-facts {"#A" "15", "#B" 13, "#D" "\"goldenaxe\""})
+;    (get-rules-actions))
+;  false)
