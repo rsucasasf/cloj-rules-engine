@@ -40,7 +40,7 @@
 ;; FUNCTION: initialize-from-json
 ;; (json/read-str json-map-str :key-fn keyword)
 (defn -initializeFromJson "Intializes rules and conditions map from json string"
-  [json-map-str]
+  [this json-map-str]
   (try
     (do
       (common/set-field this :rules (json/read-str json-map-str :key-fn keyword))

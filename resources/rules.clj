@@ -19,5 +19,13 @@
   :RULE_4 {:cond "(< #B 50)"
            :actions ["action-D" "action-B"]
            :desc "Rule description: 'launch' action-D if ..."}
+  ;; RULE_5
+  :RULE_5 {:cond "(= (str #D) (str 50))"
+           :actions ["action-E"]
+           :desc "Rule description: 'launch' action-E if ..."}
+  ;; RULE_6
+  :RULE_6 {:cond "(= #D \"goldenaxe\")"
+           :actions ["action-F"]
+           :desc "Rule description: 'launch' action-F if ..."}
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

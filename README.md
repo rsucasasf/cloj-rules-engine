@@ -54,6 +54,16 @@ clrules.updateMapFacts(facts_map);
 
 - This library can be used from Java or Clojure code
 
+- Third party libraries used in this project:
+
+| Libs                      | Version       | License                                   |
+| ------------------------- |:-------------:| -----------------------------------------:|
+| [clojure]()    | 1.8.0         | Eclipse Public License - Version 1.0 |
+| [tools.logging](https://github.com/clojure/tools.logging)  | 0.3.1   | Eclipse Public License - Version 1.0  |
+| [log4j](http://logging.apache.org/log4j/1.2/)  | 1.2.17  | Apache License, Version 2.0   |
+| [data.json](https://github.com/clojure/data.json)   | 0.2.6   | Eclipse Public License - Version 1.0   |
+| [proto-repl]()   | 0.3.1   |   |
+
 - Main methods:
   - **initialize** loads rules map from absolute or relative path. Returns *true* if everything is okay.
 
@@ -91,18 +101,37 @@ clrules.updateMapFacts(facts_map);
 
 ### Things to do / limitations
 
-- When creating the set of rules, use a hash for each of the parameters / facts (i.e. *#A* and *#B*):
+- (**RULES DEFINITION**) The set of rules are defined using Clojure syntax => Clojure maps
+
+- (**RULES DEFINITION**) Conditions are clojure expressions surrounded by quotes.
+
+- (**RULES DEFINITION**) When creating the set of rules, use a hash for each of the parameters / facts (i.e. *#A* and *#B*):
 
 ```clojure
 :RULE_1 {:cond "(and (< #A 10) (> #B 50))"
          :actions ["action-1"]}
 ```
 
-- For now, facts can only be numbers. No string values allowed.
+- (**RULES DEFINITION**) Use `str` function or escape quotes if you want to eval String variables.
 
-- The set of rules are defined using Clojure syntax => Clojure maps
+```clojure
+:RULE_5 {:cond "(= (str #D) (str 50))"
+         :actions ["action-E"]}
+:RULE_6 {:cond "(= #D \"goldenaxe\")"
+         :actions ["action-F"]}
+```
 
-- Conditions are clojure expressions surrounded by quotes.
+- (**TESTING FACTS**) When creating / updating facts, use String values (including numbers):
+
+```clojure
+(update-map-facts {"#A" "14", "#C" "73", "#D" "\"string value\""})
+```
+
+- (**TESTING FACTS**) Escape values that will be used as string
+
+```clojure
+(update-map-facts {"#A" "15", "#D" "\"goldenaxe\""}))
+```
 
 - If a rule is evaluated and 'fired', it won't be fired until facts are updated. In order to get all the 'fired' rules, call the **get-fired-rules** method / function
 

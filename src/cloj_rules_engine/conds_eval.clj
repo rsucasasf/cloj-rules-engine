@@ -69,7 +69,9 @@
   [rules m-values]
   (remove nil?
     (for [[k v] rules]
-      (eval (read-string (replace-map v m-values))))))
+      (eval
+        (read-string
+          (replace-map v m-values))))))
 
 ;; FUNCTION: get-current-conds-map
 (defn get-current-conds-map "Returns a conditions map ready for the current facts (and removing entries of missing facts / params)"

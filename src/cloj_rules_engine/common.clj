@@ -73,3 +73,34 @@
         (recur
           (assoc m-res (first (first m-ini)) (second (first m-ini)))
           (rest m-ini))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; MULTIMETHOD FUNCTION: valid?
+;; Multimethod used to validate maps contents.
+(defmulti valid? (fn [[k v]] (class v)))
+
+;; FUNCTION: is-valid?
+(defn- is-valid? "Checks if 'f' returns true or false"
+  [value f]
+  (let [res-valid? (f)]
+    (do
+      (logs/log-debug ">> value= " value ", valid?=" res-valid?)
+      (when-not res-valid?
+        (logs/log-warning "[!] value= " value ", valid?=" res-valid?))
+      res-valid?)))
+
+;; check string values: not zero allowed
+(defmethod valid? java.lang.Long [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
+
+;; check string values: not zero allowed
+(defmethod valid? java.lang.Double [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
+
+;; check string values: not empty allowed
+(defmethod valid? java.lang.String [[_ value]] (is-valid? value #(not (empty? value))))
+
+;;
+(defmethod valid? nil [_] (do (logs/log-warning "[!] value is nil") false))
+
+;;  not valid for rest cases
+(defmethod valid? :default [_] (do (logs/log-debug "value: -default- false") false))
