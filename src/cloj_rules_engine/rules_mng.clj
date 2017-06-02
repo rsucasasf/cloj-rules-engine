@@ -1,5 +1,6 @@
 (ns cloj-rules-engine.rules-mng
   "Rules-engine functions"
+  (:use [clojure.math.numeric-tower])
   (:require [cloj-rules-engine.conds-eval :as conds-eval]
             [cloj-rules-engine.logs :as logs]
             [cloj-rules-engine.common :as common]
@@ -83,7 +84,15 @@
           {k v})))))
 
 ;; TESTS
-;(if (initialize "rules.clj")
-;  (when (update-map-facts {"#A" "1", "#B" 3, "#D" "\"goldenaxe2\""})
-;    (get-rules-actions))
-;  false)
+(if (initialize "rules.clj")
+  (when (update-map-facts {"#A" "2", "#B" 4, "#C" 1000})
+    (get-rules-actions))
+  false)
+
+;(get-fired-rules)
+
+;(deref *rules-map)
+
+;(deref *conds-map)
+
+;(deref *values-map)

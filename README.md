@@ -13,6 +13,7 @@
   - Things to do / limitations
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
+- [Complex Rules](#complex-rules)
 - [Mini tutorials and links](#mini-tutorials-and-links)
   - Clojure
   - Travis
@@ -193,11 +194,8 @@ And then, ...
 
 ```clojure
 (initialize "rules.clj")
-
 (update-map-facts {"#A" "14"})
-
 (get-rules-actions)
-
 (get-fired-rules)
 ```
 
@@ -232,6 +230,28 @@ clrules.getRulesActions();
 
 clrules.getFiredRules();  // get fired rules in json format
 
+```
+
+-----------------------
+
+## Complex Rules
+
+- You can use functions from [clojure.math.numeric-tower](https://clojure.github.io/math.numeric-tower/) when defining rules: *expt*, *abs*, *gcd*, *lcm*, *floor* ...
+
+```clojure
+;; RULE_8
+:RULE_8 {:cond "(> (sqrt #C) 10)"
+         :actions ["action-H-sqrt"]
+         :desc "Rule description: 'launch' action-H-sqrt if square root of #C is greater than 10."}
+```
+
+- And also clojure functions (from **org.clojure/clojure**) that return boolean values: *every?*, *even?*, *odd?* ...
+
+```clojure
+;; RULE_9
+:RULE_9 {:cond "(every? even? (list #A #B #C))"
+         :actions ["action-I-even?"]
+         :desc "Rule description: 'launch' action-I-even? if all elements from list are even."}
 ```
 
 -----------------------

@@ -1,5 +1,6 @@
 (ns cloj-rules-engine.conds-eval
-  (:require [clojure.set :as clojure.set]))
+  (:require [clojure.set :as clojure.set]
+            [cloj-rules-engine.logs :as logs]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -10,10 +11,13 @@
 ;; Given an input string and a hash-map, returns a new string with all keys in map found in input replaced with the value of the key
 (defn- replace-map "Returns a new string with all keys in map 'm' found in input string 's' replaced with the value of the key"
   [txt replacement-map]
-  (clojure.string/replace ;; (replace txt match replacement)
-    txt
-    (re-pattern (apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys replacement-map)))))
-    replacement-map))
+  (try
+    (clojure.string/replace
+      txt
+      (re-pattern (apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys replacement-map)))))
+      replacement-map)
+    (catch Exception e
+      (do (logs/log-error "txt=" txt ", replacement-map=" replacement-map) (logs/log-exception e) txt))))
 
 ;; FUNCTION: get-params-keys-cond-map
 (defn- get-map-params-cond-map-keys
@@ -24,7 +28,8 @@
   (into {}
     (for [x (distinct (apply concat (for [[k v] conds-map] (re-seq #"\#[A-Za-z][A-Za-z0-9]*" v))))]
       {x (remove nil? (for [[k v] conds-map]
-                        (when-not (nil? (re-find (re-pattern (str x " ")) v)) k)))})))
+                        (when-not (nil? (re-find (re-pattern x) v)) k)))})))
+                        ;(when-not (nil? (re-find (re-pattern (str x " ")) v)) k)))})))
 
 ;; FUNCTION: get-keys-to-remove
 (defn- get-keys-to-remove
@@ -53,10 +58,6 @@
       m-result
       (recur (dissoc m-result (first l)) (next l)))))
 
-
-;(clojure.string/replace v #"'" "\"")
-;(clojure.string/replace (get-in rules [x :cond]) #"'" "\"")
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PUBLIC FUNCTIONS:
 
@@ -67,16 +68,18 @@
   (into {}
     (for [x (keys rules)]
       {(keyword (uuid)) (str "(when " (clojure.string/replace (get-in rules [x :cond]) #"'" "\"") " " x ")")})))
-      ;{(keyword (uuid)) (str "(when " (get-in rules [x :cond]) " " x ")")})))
 
 ;; FUNCTION: eval-conditions
 (defn eval-conditions "Evaluates conditions"
   [rules m-values]
   (remove nil?
     (for [[k v] rules]
-      (eval
-        (read-string
-          (replace-map v m-values))))))
+      (try
+        (eval
+          (read-string
+            (replace-map v m-values)))
+        (catch Exception e
+          (do (logs/log-error "k=" k ", v=" v) (logs/log-exception e) nil))))))
 
 ;; FUNCTION: get-current-conds-map
 (defn get-current-conds-map "Returns a conditions map ready for the current facts (and removing entries of missing facts / params)"
