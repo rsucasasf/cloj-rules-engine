@@ -84,15 +84,7 @@
           {k v})))))
 
 ;; TESTS
-(if (initialize "rules.clj")
-  (when (update-map-facts {"#A" "2", "#B" 4, "#C" 1000})
-    (get-rules-actions))
-  false)
-
-;(get-fired-rules)
-
-;(deref *rules-map)
-
-;(deref *conds-map)
-
-;(deref *values-map)
+;(if (initialize "rules.clj")
+;  (when (update-map-facts {"#A" "21", "#B" 43, "#C" 1000, "#LIST1" "[121 321 123 122 1233]"})
+;    (get-rules-actions))
+;  false)

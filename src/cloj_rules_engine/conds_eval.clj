@@ -75,9 +75,9 @@
   (remove nil?
     (for [[k v] rules]
       (try
-        (eval
-          (read-string
-            (replace-map v m-values)))
+        (let [eval-str (replace-map v m-values)]
+          (logs/log-info "Evaluating ... " eval-str " ...")
+          (eval (read-string eval-str)))
         (catch Exception e
           (do (logs/log-error "k=" k ", v=" v) (logs/log-exception e) nil))))))
 

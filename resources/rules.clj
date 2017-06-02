@@ -39,5 +39,13 @@
   :RULE_9 {:cond "(every? even? (list #A #B #C))"
            :actions ["action-I-even?"]
            :desc "Rule description: 'launch' action-I-even? if all elements from list are even"}
+  ;; RULE_10
+  :RULE_10 {:cond "(every? #(> % 10) [#A #B #C])"
+            :actions ["action-J-func"]
+            :desc "Rule description: 'launch' action-J-func if all elements from list / vector are greater than 10"}
+  ;; RULE_11
+  :RULE_11 {:cond "(every? #(> % 100) #LIST1)"
+            :actions ["action-K-func"]
+            :desc "Rule description: 'launch' action-K-func if all elements from list / vector '#LIST_1' are greater than 10"}
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

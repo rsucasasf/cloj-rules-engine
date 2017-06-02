@@ -103,7 +103,10 @@ clrules.updateMapFacts(facts_map);
 
 ### Things to do / limitations
 
-- (**RULES DEFINITION**) The set of rules are defined using Clojure syntax => Clojure maps. Parameters / facts have the following formatt: #*FACT_NAME*
+- (**RULES DEFINITION**) The set of rules are defined using Clojure syntax => Clojure maps. Parameters / facts have the following formatt: #*FACTNAME*
+  - No underscores allowed.
+  - Regular expression used to validate fact / parameter names: `#"\#[A-Za-z][A-Za-z0-9]*"`
+
 
 - (**RULES EVALUATION**) The rules and facts are evaluated following the steps of the next example:
 
@@ -236,7 +239,7 @@ clrules.getFiredRules();  // get fired rules in json format
 
 ## Complex Rules
 
-- You can use functions from [clojure.math.numeric-tower](https://clojure.github.io/math.numeric-tower/) when defining rules: *expt*, *abs*, *gcd*, *lcm*, *floor* ...
+- You can use functions from [clojure.math.numeric-tower](https://clojure.github.io/math.numeric-tower/) when defining rules: `expt`, `abs`, `gcd`, `lcm`, `floor` ...
 
 ```clojure
 ;; RULE_8
@@ -245,13 +248,35 @@ clrules.getFiredRules();  // get fired rules in json format
          :desc "Rule description: 'launch' action-H-sqrt if square root of #C is greater than 10."}
 ```
 
-- And also clojure functions (from **org.clojure/clojure**) that return boolean values: *every?*, *even?*, *odd?* ...
+- You can also use clojure functions (from **org.clojure/clojure**) that return boolean values: `every?`, `even?`, `odd?` ...
 
 ```clojure
 ;; RULE_9
 :RULE_9 {:cond "(every? even? (list #A #B #C))"
          :actions ["action-I-even?"]
          :desc "Rule description: 'launch' action-I-even? if all elements from list are even."}
+```
+
+- Or custom functions: `#(> % 10)`
+
+```clojure
+;; RULE_10
+:RULE_10 {:cond "(every? #(> % 10) [#A #B #C])"
+          :actions ["action-J-func"]
+          :desc "Rule description: 'launch' action-J-func if all elements from list / vector are greater than 10"}
+```
+
+- (**warning**: not ready yet - only works with **string** vectors or lists) Use lists or vectors as parameters:
+
+```clojure
+;; RULE_11
+:RULE_11 {:cond "(every? #(> % 100) #LIST1)"
+          :actions ["action-K-func"]
+          :desc "Rule description: 'launch' action-K-func if all elements from list / vector '#LIST1' are greater than 10"}
+```
+
+```clojure
+(update-map-facts {"#A" "21", "#B" 43, "#C" 1000, "#LIST1" "[121 321 123 122 1233]"})
 ```
 
 -----------------------

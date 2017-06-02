@@ -99,14 +99,17 @@
         (logs/log-warning "[!] value= " value ", valid?=" res-valid?))
       res-valid?)))
 
-;; check string values: not zero allowed
+;; check java.lang.Long values: not allowed
 (defmethod valid? java.lang.Long [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
 
-;; check string values: not zero allowed
+;; check java.lang.Double values: not allowed
 (defmethod valid? java.lang.Double [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
 
 ;; check string values: not empty allowed
 (defmethod valid? java.lang.String [[_ value]] (is-valid? value #(not (empty? value))))
+
+;; check string values: not empty allowed
+(defmethod valid? clojure.lang.PersistentVector [[_ value]] true)
 
 ;;
 (defmethod valid? nil [_] (do (logs/log-warning "[!] value is nil") false))

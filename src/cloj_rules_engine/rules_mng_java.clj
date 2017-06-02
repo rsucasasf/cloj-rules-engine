@@ -1,5 +1,6 @@
 (ns cloj-rules-engine.rules-mng-java
   "Rules-engine library used by Java"
+  (:use [clojure.math.numeric-tower])
   (:require [cloj-rules-engine.conds-eval :as conds-eval]
             [cloj-rules-engine.logs :as logs]
             [cloj-rules-engine.common :as common]
