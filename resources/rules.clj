@@ -27,5 +27,9 @@
   :RULE_6 {:cond "(= #D \"goldenaxe\")"
            :actions ["action-F"]
            :desc "Rule description: 'launch' action-F if ..."}
+  ;; RULE_7
+  :RULE_7 {:cond "(= #D 'goldenaxe2')"
+           :actions ["action-G"]
+           :desc "Rule description: 'launch' action-G if ..."}
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

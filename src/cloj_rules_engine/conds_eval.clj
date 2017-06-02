@@ -53,6 +53,10 @@
       m-result
       (recur (dissoc m-result (first l)) (next l)))))
 
+
+;(clojure.string/replace v #"'" "\"")
+;(clojure.string/replace (get-in rules [x :cond]) #"'" "\"")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PUBLIC FUNCTIONS:
 
@@ -62,7 +66,8 @@
   [rules]
   (into {}
     (for [x (keys rules)]
-      {(keyword (uuid)) (str "(when " (get-in rules [x :cond]) " " x ")")})))
+      {(keyword (uuid)) (str "(when " (clojure.string/replace (get-in rules [x :cond]) #"'" "\"") " " x ")")})))
+      ;{(keyword (uuid)) (str "(when " (get-in rules [x :cond]) " " x ")")})))
 
 ;; FUNCTION: eval-conditions
 (defn eval-conditions "Evaluates conditions"

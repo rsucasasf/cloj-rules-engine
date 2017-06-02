@@ -20,7 +20,7 @@
 ;; 'rules-file': rules file
 (defn initialize "Intializes rules and conditions map"
   [rules-file]
-  (if-let [rules-map-content (common/read-content rules-file)] ; (if-let [value nil] value "Not found")
+  (if-let [rules-map-content (common/read-content rules-file)]
     (do
       (reset! *rules-map rules-map-content)
       (reset! *conds-map (conds-eval/gen-conds-map @*rules-map))
@@ -41,16 +41,17 @@
 
 ;; FUNCTION: update-map-facts
 (defn update-map-facts "Updates values-map (facts) content"
-  [m]
-  (if-not (every? common/valid? m)
-    (do (logs/log-warning "Fact map's values are not valid") false)
-    (do
-      ; reset / update facts
-      (reset! *values-map m)
-      ; fired set to false
-      (doseq [[k v] @*rules-map]
-        (swap! *rules-map assoc-in [k :fired] false))
-      true)))
+  [map-values]
+  (let [m (common/parse-m map-values)]
+    (if-not (every? common/valid? m)
+      (do (logs/log-warning "Fact map's values are not valid") false)
+      (do
+        ; reset / update facts
+        (reset! *values-map m)
+        ; fired set to false
+        (doseq [[k v] @*rules-map]
+          (swap! *rules-map assoc-in [k :fired] false))
+        true))))
 
 ;; FUNCTION: get-rules-actions
 (defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
@@ -83,6 +84,6 @@
 
 ;; TESTS
 ;(if (initialize "rules.clj")
-;  (when (update-map-facts {"#A" "15", "#B" 13, "#D" "\"goldenaxe\""})
+;  (when (update-map-facts {"#A" "1", "#B" 3, "#D" "\"goldenaxe2\""})
 ;    (get-rules-actions))
 ;  false)

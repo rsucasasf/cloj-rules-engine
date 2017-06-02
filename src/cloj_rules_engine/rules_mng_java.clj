@@ -51,16 +51,17 @@
 
 ;; FUNCTION: updateMapFacts
 (defn -updateMapFacts "Updates values-map (facts) content"
-  [this m]
-  (if-not (every? common/valid? m)
-    (do (logs/log-warning "Fact map's values are not valid") false)
-    (do
-      ; reset / update facts
-      (common/set-field this :values m)
-      ; creates new map with fired attribute set to false
-      (common/set-field this :rules
-        (common/add-new-attr-to-map (common/get-field this :rules) :fired false))
-      true)))
+  [this map-values]
+  (let [m (common/parse-m map-values)]
+    (if-not (every? common/valid? m)
+      (do (logs/log-warning "Fact map's values are not valid") false)
+      (do
+        ; reset / update facts
+        (common/set-field this :values m)
+        ; creates new map with fired attribute set to false
+        (common/set-field this :rules
+          (common/add-new-attr-to-map (common/get-field this :rules) :fired false))
+        true))))
 
 ;; FUNCTION: getRulesActions
 ;; Returns an ArrayList of Strings, where each of them is an action identifier (:actions ["id" ] ===> "id")

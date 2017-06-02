@@ -99,9 +99,36 @@ clrules.updateMapFacts(facts_map);
 
   - **initialize-from-json**
 
+
 ### Things to do / limitations
 
 - (**RULES DEFINITION**) The set of rules are defined using Clojure syntax => Clojure maps. Parameters / facts have the following formatt: #*FACT_NAME*
+
+- (**RULES EVALUATION**) The rules and facts are evaluated following the steps of the next example:
+
+1. In the example we have 2 facts or parameters: *#A* and *#B*
+
+2. Rules conditions:
+
+```clojure
+:RULE_1 {:cond "(and (< #A 10) (> #B 50))"
+         :actions ["action-1"]}
+```
+
+3. Facts are set or updated
+
+```clojure
+(update-map-facts {"#A" 33, "#B" 66}))
+```
+
+4. Rules conditions are transformed to clojure syntax in the following way:
+
+```clojure
+(when (and (< 33 10) (> 66 50)) :RULE_1)
+```
+
+5. If condition is satisfied (using clojure *eval* function inside **get-rules-actions** method), rule is tagged as fired
+
 
 - (**RULES DEFINITION**) Conditions are clojure expressions surrounded by quotes.
 
@@ -112,25 +139,21 @@ clrules.updateMapFacts(facts_map);
          :actions ["action-1"]}
 ```
 
-- (**RULES DEFINITION**) Use `str` function or escape quotes if you want to eval String variables.
+- (**RULES DEFINITION**) Use `str` function, single quotes or double quotes (and escape character) if you want to eval String variables.
 
 ```clojure
 :RULE_5 {:cond "(= (str #D) (str 50))"
          :actions ["action-E"]}
 :RULE_6 {:cond "(= #D \"goldenaxe\")"
          :actions ["action-F"]}
+:RULE_7 {:cond "(= #D 'goldenaxe2')"
+        :actions ["action-G"]}
 ```
 
-- (**TESTING FACTS**) When creating / updating facts, use String values (including numbers):
+- (**TESTING FACTS**) When creating / updating facts, escape string values that will be used as string
 
 ```clojure
-(update-map-facts {"#A" "14", "#C" "73", "#D" "\"string value\""})
-```
-
-- (**TESTING FACTS**) Escape values that will be used as string
-
-```clojure
-(update-map-facts {"#A" "15", "#D" "\"goldenaxe\""}))
+(update-map-facts {"#A" 15, "#D" "\"goldenaxe\""}))
 ```
 
 - If a rule is evaluated and 'fired', it won't be fired until facts are updated. In order to get all the 'fired' rules, call the **get-fired-rules** method / function

@@ -74,6 +74,15 @@
           (assoc m-res (first (first m-ini)) (second (first m-ini)))
           (rest m-ini))))))
 
+;; FUNCTION: parse-m
+(defn parse-m "Transform map -m- numeric values into string values"
+  [m]
+  (into {}
+    (for [[k v] m]
+      (if (number? v)
+        {k (str v)}
+        {k v}))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; MULTIMETHOD FUNCTION: valid?
