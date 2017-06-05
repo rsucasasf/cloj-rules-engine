@@ -7,19 +7,6 @@
             [clojure.data.json :as json]))
 
 (deftest test-01
-  (testing "Test (1=1): " (is (= 1 1))))
-
-(deftest test-02
-  (testing "Test logs: "
-    (do
-      (logs/log-info "info log")
-      (logs/log-debug "debug log")
-      (logs/log-error "error log")
-      (logs/log-warning "warning log")
-      (logs/log-trace "trace log")
-      (is (= 1 1)))))
-
-(deftest test-03
   (testing "Initialize rules: "
     (is
       (do
@@ -27,19 +14,19 @@
           (rules-mng/update-map-facts {"#A" "", "#B" 43, "#C" 1000}))
         true))))
 
-(deftest test-04
+(deftest test-02
   (testing "Initialize rules with 'bad' path: "
     (is (not (rules-mng/initialize "rule12s.clj")))))
 
-(deftest test-05
+(deftest test-03
   (testing "Initialize rules from json: "
     (is (rules-mng/initialize-from-json (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))
 
-(deftest test-06
+(deftest test-04
   (testing "Initialize rules from 'bad' json: "
     (is (= false (not (rules-mng/initialize-from-json (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))))
 
-(deftest test-07
+(deftest test-05
   (testing "Initialize & check rules (clojure mode): "
     (is
       (if (rules-mng/initialize "rules.clj")
@@ -51,7 +38,7 @@
             (if (> (count res) 0) true false)))
         false))))
 
-(deftest test-08
+(deftest test-06
   (testing "Initialize & check rules (java mode): "
     (do
       (rules-mng-java/-init)
