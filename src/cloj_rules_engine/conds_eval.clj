@@ -29,7 +29,6 @@
     (for [x (distinct (apply concat (for [[k v] conds-map] (re-seq #"\#[A-Za-z][A-Za-z0-9]*" v))))]
       {x (remove nil? (for [[k v] conds-map]
                         (when-not (nil? (re-find (re-pattern x) v)) k)))})))
-                        ;(when-not (nil? (re-find (re-pattern (str x " ")) v)) k)))})))
 
 ;; FUNCTION: get-keys-to-remove
 (defn- get-keys-to-remove
