@@ -82,9 +82,3 @@
       (for [[k v] (deref *rules-map)]
         (when (get-in @*rules-map [k :fired])
           {k v})))))
-
-;; TESTS
-;(if (initialize "rules.clj")
-;  (when (update-map-facts {"#A" "21", "#B" 43, "#C" 1000, "#LIST1" "[121 321 123 122 1233]"})
-;    (get-rules-actions))
-;  false)

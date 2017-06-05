@@ -59,11 +59,12 @@ clrules.updateMapFacts(facts_map);
 
 | Libs                      | Version       | License                                   |
 | ------------------------- |:-------------:| -----------------------------------------:|
-| [clojure]()    | 1.8.0         | Eclipse Public License - Version 1.0 |
-| [tools.logging](https://github.com/clojure/tools.logging)  | 0.3.1   | Eclipse Public License - Version 1.0  |
-| [log4j](http://logging.apache.org/log4j/1.2/)  | 1.2.17  | Apache License, Version 2.0   |
-| [data.json](https://github.com/clojure/data.json)   | 0.2.6   | Eclipse Public License - Version 1.0   |
-| [proto-repl]()   | 0.3.1   |   |
+| [clojure](https://clojure.org/) | 1.8.0 | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
+| [tools.logging](https://github.com/clojure/tools.logging)  | 0.3.1   | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
+| [log4j](http://logging.apache.org/log4j/1.2/)  | 1.2.17  | [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) |
+| [data.json](https://github.com/clojure/data.json)   | 0.2.6   | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
+| [proto-repl](https://github.com/jasongilman/proto-repl) | 0.3.1   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [math.numeric-tower](https://github.com/clojure/math.numeric-tower/) | 0.0.4 | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
 
 - Main methods:
   - **initialize** loads rules map from absolute or relative path. Returns *true* if everything is okay.

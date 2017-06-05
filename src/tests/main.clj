@@ -1,18 +1,11 @@
 (ns tests.main
-  (:require [cloj-rules-engine.common :as common]))
+  (:use [clojure.math.numeric-tower])
+  (:require [cloj-rules-engine.rules-mng :as rules-mng]
+            [cloj-rules-engine.logs :as logs]))
 
 
-;; rules map
-;(def ^:private rules-map (atom {}))
-;
-;; values-map
-;(def ^:private values-map (atom {"A" "15"
-;                                 "B" "46"
-;                                 "C" "11"}))
-;
-;(reset! rules-map (common/read-content "rules.clj"))
-;(deref rules-map)
-;(deref values-map)
-;
-;(map #(java.util.regex.Pattern/quote %) (keys @values-map))
-;(apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys @values-map))))
+;; TESTS / MAIN
+(if (rules-mng/initialize "rules.clj")
+  (when (rules-mng/update-map-facts {"#A" "21", "#B" 43, "#C" 1000, "#LIST1" "[121 321 123 122 1233]"})
+    (rules-mng/get-rules-actions))
+  false)
