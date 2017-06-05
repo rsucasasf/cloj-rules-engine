@@ -8,7 +8,7 @@
   (testing "Test (1=1): " (is (= 1 1))))
 
 (deftest test-02
-  (testing "Initialize rules: " (is (initialize "rules.clj"))))
+  (testing "Initialize rules: " (is (rules-mng/initialize "rules.clj"))))
 
 (deftest test-03
   (testing "Initialize & check rules: "
