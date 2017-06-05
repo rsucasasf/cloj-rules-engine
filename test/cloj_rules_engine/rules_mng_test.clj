@@ -3,7 +3,6 @@
   (:require [clojure.test :refer :all]
             [cloj-rules-engine.logs :as logs]
             [cloj-rules-engine.rules-mng :as rules-mng]
-            [cloj-rules-engine.rules-mng-java :as rules-mng-java]
             [clojure.data.json :as json]))
 
 (deftest test-01
@@ -37,12 +36,3 @@
             (logs/log-info ">>>>>>>>>>>>>>>>>> " (> (count res) 0))
             (if (> (count res) 0) true false)))
         false))))
-
-(deftest test-06
-  (testing "Initialize & check rules (java mode): "
-    (do
-      (rules-mng-java/-init)
-      (is (= 1 1)))))
-
-;(run-tests 'cloj-rules-engine.rules-mng-test)
-;(run-all-tests)

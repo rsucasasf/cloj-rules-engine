@@ -3,3 +3,6 @@
 
 (deftest test-01
   (testing "Test (1=1): " (is (= 1 1))))
+
+;(run-tests 'cloj-rules-engine.rules-mng-test)
+;(run-all-tests)
