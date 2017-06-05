@@ -101,3 +101,5 @@
         (for [[k v] rules-map]
           (when (get-in rules-map [k :fired])
             {k v}))))))
+
+@(state. )

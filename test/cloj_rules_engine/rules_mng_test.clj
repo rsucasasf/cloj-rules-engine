@@ -36,3 +36,14 @@
             (logs/log-info ">>>>>>>>>>>>>>>>>> " (> (count res) 0))
             (if (> (count res) 0) true false)))
         false))))
+
+(deftest test-06
+  (testing "Initialize & check rules (clojure mode): "
+    (is
+      (if (rules-mng/initialize "rules.clj")
+        (when (rules-mng/update-map-facts {"#A" "21", "#B" 43, "#C" 1000, "#LIST1" "[121 321 123 122 1233]"})
+          (do
+            (rules-mng/get-rules-actions)
+            (rules-mng/get-rules-actions))
+            trues)
+        false))))
