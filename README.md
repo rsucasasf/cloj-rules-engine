@@ -1,7 +1,8 @@
 # cloj-rules-engine
 
-[![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
 [![Build Status](https://travis-ci.org/rsucasasf/cloj-rules-engine.svg?branch=master)](https://travis-ci.org/rsucasasf/cloj-rules-engine)
+[![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
+[![GitHub release](https://img.shields.io/badge/version-0.1.1--pre-yellowgreen.svg)](https://github.com/rsucasasf/cloj-rules-engine/releases/tag/0.1.1-alpha)
 
 **cloj-rules-engine** is a very simple rules engine written in [Clojure](https://clojure.org/) and designed to work with Java.
 
