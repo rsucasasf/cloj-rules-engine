@@ -45,5 +45,5 @@
           (do
             (rules-mng/get-rules-actions)
             (rules-mng/get-rules-actions))
-            trues)
+            true)
         false))))

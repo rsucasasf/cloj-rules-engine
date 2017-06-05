@@ -10,6 +10,7 @@
     :state state
     :init init
     :prefix "-"
+    ;:constructors {[]}
     :main false
     :methods [[initialize [String] boolean]
               [initializeFromJson [String] boolean]
@@ -102,4 +103,4 @@
           (when (get-in rules-map [k :fired])
             {k v}))))))
 
-@(state. )
+;(def obj (cloj-rules-engine.rules-mng-java. ))
