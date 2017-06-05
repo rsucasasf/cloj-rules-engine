@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/rsucasasf/cloj-rules-engine.svg?branch=master)](https://travis-ci.org/rsucasasf/cloj-rules-engine)
 [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
 [![GitHub release](https://img.shields.io/badge/version-0.1.1--pre-yellowgreen.svg)](https://github.com/rsucasasf/cloj-rules-engine/releases/tag/0.1.1-alpha)
+[![Codecov](https://img.shields.io/codecov/c/github/rsucasasf/cloj-rules-engine.svg)]()
 
 **cloj-rules-engine** is a very simple rules engine written in [Clojure](https://clojure.org/) and designed to work with Java.
 
@@ -19,6 +20,8 @@
   - Clojure
   - Travis
   - Integration with Travis
+  - CODECOV
+  - Integration with CODECOV
   - Markdown tips and links
   - Export to maven (local repo)
 - [License](#license)
@@ -317,6 +320,14 @@ script:
 ```
 [![Build Status](https://travis-ci.org/rsucasasf/cloj-rules-engine.svg?branch=master)](https://travis-ci.org/rsucasasf/cloj-rules-engine)
 ```
+
+### [CODECOV](https://codecov.io)
+
+https://codecov.io
+
+
+### Integration with CODECOV
+
 
 ### Markdown tips and links
 
