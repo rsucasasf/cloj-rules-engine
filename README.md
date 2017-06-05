@@ -27,9 +27,14 @@
 
 ## Description
 
-**cloj-rules-engine** is a rules engine written in Clojure. Features:
+**cloj-rules-engine** is a rules engine written in Clojure.
 
-- Each rule has a condition (composed of conditional expressions -written in Clojure- that refer to facts), and a set of actions that are activated if the condition is satisfied. Facts are the data upon which rules operate.
+![Rules Engine](doc/rules-engine.png)
+
+
+**Features**:
+
+- Each **rule** has a **condition** (composed of conditional expressions -written in Clojure- that refer to facts), and a set of **actions** that are activated if the condition is satisfied. **Facts** are the data upon which rules operate. The fired actions are a represented as a set of identifiers (strings).
 
 - Rules are expressed in a simple and easy to read Clojure format ([clojure *maps*](http://www.deadcoderising.com/2015-04-clojure-basics-dealing-wit-maps/))
 
@@ -182,14 +187,12 @@ First, define a set of rules (*"rules.clj"*):
 
 ```clojure
 {
-  ;; RULE_1
   :RULE_1 {:cond "(and (< #A 10) (> #B 50))"
            :actions ["action-1"]
            :desc "Rule description: 'launch' action-1 if 'a' is lower than 10 and if 'b' is greater than 50"}
-  ;; RULE_2
+
   :RULE_2 {:cond "(> #A 10)"
-           :actions ["action-2"]
-           :desc "Rule description: 'launch' action-2 and action-C if ..."}
+           :actions ["action-2"]}
 }
 ```
 
@@ -244,7 +247,6 @@ clrules.getFiredRules();  // get fired rules in json format
 - You can use functions from [clojure.math.numeric-tower](https://clojure.github.io/math.numeric-tower/) when defining rules: `expt`, `abs`, `gcd`, `lcm`, `floor` ...
 
 ```clojure
-;; RULE_8
 :RULE_8 {:cond "(> (sqrt #C) 10)"
          :actions ["action-H-sqrt"]
          :desc "Rule description: 'launch' action-H-sqrt if square root of #C is greater than 10."}
@@ -253,7 +255,6 @@ clrules.getFiredRules();  // get fired rules in json format
 - You can also use clojure functions (from **org.clojure/clojure**) that return boolean values: `every?`, `even?`, `odd?` ...
 
 ```clojure
-;; RULE_9
 :RULE_9 {:cond "(every? even? (list #A #B #C))"
          :actions ["action-I-even?"]
          :desc "Rule description: 'launch' action-I-even? if all elements from list are even."}
@@ -262,7 +263,6 @@ clrules.getFiredRules();  // get fired rules in json format
 - Or custom functions: `#(> % 10)`
 
 ```clojure
-;; RULE_10
 :RULE_10 {:cond "(every? #(> % 10) [#A #B #C])"
           :actions ["action-J-func"]
           :desc "Rule description: 'launch' action-J-func if all elements from list / vector are greater than 10"}
@@ -271,7 +271,6 @@ clrules.getFiredRules();  // get fired rules in json format
 - (**warning**: not ready yet - only works with **string** vectors or lists) Use lists or vectors as parameters:
 
 ```clojure
-;; RULE_11
 :RULE_11 {:cond "(every? #(> % 100) #LIST1)"
           :actions ["action-K-func"]
           :desc "Rule description: 'launch' action-K-func if all elements from list / vector '#LIST1' are greater than 10"}
