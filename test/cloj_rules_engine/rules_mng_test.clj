@@ -37,7 +37,7 @@
 
 (deftest test-06
   (testing "Initialize rules from 'bad' json: "
-    (is (not (rules-mng/initialize-from-json (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}}))))))
+    (is (= false (not (rules-mng/initialize-from-json (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))))
 
 (deftest test-07
   (testing "Initialize & check rules (clojure mode): "
