@@ -2,7 +2,7 @@
   (:use [clojure.math.numeric-tower])
   (:require [clojure.test :refer :all]
             [cloj-rules-engine.logs :as logs]
-            [cloj-rules-engine.rules-mng :refer :all]))
+            [cloj-rules-engine.rules-mng :as rules-mng]))
 
 (deftest test-01
   (testing "Test (1=1): " (is (= 1 1))))
