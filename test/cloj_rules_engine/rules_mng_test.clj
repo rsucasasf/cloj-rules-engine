@@ -25,7 +25,7 @@
       (do
         (when (rules-mng/initialize "rules.clj")
           (rules-mng/update-map-facts {"#A" "", "#B" 43, "#C" 1000}))
-      true)))
+        true))))
 
 (deftest test-04
   (testing "Initialize rules with 'bad' path: "
