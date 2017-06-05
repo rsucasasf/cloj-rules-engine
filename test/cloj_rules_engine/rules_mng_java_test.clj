@@ -18,8 +18,8 @@
 
 (deftest test-03
   (testing "Initialize rules from json: "
-    (is (rules-mng-java/-initialize-from-json "" (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))
+    (is (rules-mng-java/-initializeFromJson "" (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))
 
 (deftest test-04
   (testing "Initialize rules from 'bad' json: "
-    (is (= false (not (rules-mng-java/-initialize-from-json "" (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))))
+    (is (= false (not (rules-mng-java/-initializeFromJson "" (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))))
