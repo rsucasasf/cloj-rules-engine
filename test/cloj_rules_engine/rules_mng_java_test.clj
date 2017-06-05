@@ -16,6 +16,10 @@
   (testing "Initialize rules with 'bad' path: "
     (is (not (rules-mng-java/-initialize "" "rule12s.clj")))))
 
+(deftest test-03
+  (testing "Initialize rules with path: "
+    (is (not (rules-mng-java/-initialize "" "rules.clj")))))
+
 ;(deftest test-03
 ;  (testing "Initialize rules from json: "
 ;    (is (rules-mng-java/-initializeFromJson "" (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))
