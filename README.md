@@ -19,8 +19,9 @@
 - [Mini tutorials and links](#mini-tutorials-and-links)
   - Clojure
   - Travis
-  - Integration with Travis
-  - Integration with CODECOV
+  - Continuous Integration
+    - Integration with Travis
+    - Integration with CODECOV
   - Markdown tips and links
   - Export to maven (local repo)
 - [License](#license)
@@ -299,7 +300,11 @@ clrules.getFiredRules();  // get fired rules in json format
 
 [Building a Clojure project](https://docs.travis-ci.com/user/languages/clojure/)
 
-### Integration with Travis
+### Continuous Integration
+
+[Travis](https://travis-ci.org/profile) ==> [codecov](https://codecov.io)
+
+#### Integration with Travis
 
 1. Enable github project in [Travis](https://travis-ci.org/profile) (entering as the github user)
 
@@ -320,8 +325,9 @@ script:
 [![Build Status](https://travis-ci.org/rsucasasf/cloj-rules-engine.svg?branch=master)](https://travis-ci.org/rsucasasf/cloj-rules-engine)
 ```
 
-### Integration with [CODECOV](https://codecov.io)
+#### Integration with [CODECOV](https://codecov.io)
 
+Codecov provides highly integrated tools to group, merge, archive and compare coverage reports. Whether your team is comparing changes in a pull request or reviewing a single commit, Codecov will improve the code review workflow and quality.
 
 ### Markdown tips and links
 

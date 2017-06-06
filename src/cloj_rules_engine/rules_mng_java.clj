@@ -11,7 +11,6 @@
     :init init
     :prefix "-"
     :implements [clojure.lang.IDeref]
-    ;:constructors {[]}
     :main false
     :methods [[initialize [String] boolean]
               [initializeFromJson [String] boolean]
@@ -103,11 +102,3 @@
         (for [[k v] rules-map]
           (when (get-in rules-map [k :fired])
             {k v}))))))
-
-(defn -deref
-  [this]
-  "Hello, World!")
-
-;@(ClojRules.)
-
-;https://kotka.de/blog/2010/02/gen-class_how_it_works_and_how_to_use_it.html

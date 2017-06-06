@@ -55,4 +55,4 @@
 ;; FUNCTION: log-exception
 (defn log-exception "creates a map with Exception info"
   [e]
-  (log-error "> Caught exception: [" (.getMessage e) "], stackTrace: \n    " (clojure.string/join "\n    " (map str (.getStackTrace e)))))
+  (log-error "> Caught exception: [" (.getMessage e) "] \n> StackTrace: \n    " (clojure.string/join "\n    " (map str (.getStackTrace e)))))
