@@ -16,9 +16,9 @@
   (testing "Initialize rules with 'bad' path: "
     (is (not (rules-mng-java/-initialize "" "rule12s.clj")))))
 
-(deftest test-03
-  (testing "Initialize rules with path: "
-    (is (not (rules-mng-java/-initialize "" "rules.clj")))))
+;(deftest test-03
+;  (testing "Initialize rules with path: "
+;    (is (not (rules-mng-java/-initialize "" "rules.clj")))))
 
 ;(deftest test-03
 ;  (testing "Initialize rules from json: "
