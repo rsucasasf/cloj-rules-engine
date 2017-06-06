@@ -46,44 +46,12 @@
   [map-values]
   (rules-funcs/update-map-facts map-values *rules-map *values-map))
 
-;  (let [m (common/parse-m map-values)]
-;    (if-not (every? common/valid? m)
-;      (do (logs/log-warning "Fact map's values are not valid") false)
-;      (do
-        ; reset / update facts
-;        (reset! *values-map m)
-        ; fired set to false
-;        (doseq [[k v] @*rules-map]
-;          (swap! *rules-map assoc-in [k :fired] false))
-;        true))))
-
 ;; FUNCTION: get-rules-actions
 (defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
   []
   (rules-funcs/get-rules-actions *rules-map *values-map *conds-map))
-;  (try
-;    (java.util.ArrayList.
-;      (remove nil?
-;        (distinct
-;          (apply concat (for [x (conds-eval/eval-conditions
-;                                  (conds-eval/get-current-conds-map @*conds-map @*values-map)
-;                                  @*values-map)]
-;                          (if-not (get-in @*rules-map [x :fired])
-;                            (do
-;                              (swap! *rules-map assoc-in [x :fired] true) ; rule fired
-;                              (get-in @*rules-map [x :actions]))
-;                            (do
-;                              (logs/log-warning "Rule [" x "] already fired")
-;                              nil)))))))
-;    (catch Exception e
-;      (do (logs/log-exception e) nil))))
 
 ;; FUNCTION: get-fired-rules
 (defn get-fired-rules "Returns an ArrayList of the fired rules"
   []
   (rules-funcs/get-fired-rules *rules-map))
-;  (java.util.ArrayList.
-;    (remove nil?
-;      (for [[k v] (deref *rules-map)]
-;        (when (get-in @*rules-map [k :fired])
-;          {k v})))))
