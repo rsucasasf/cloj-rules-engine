@@ -1,7 +1,8 @@
 (ns cloj-rules-engine.rules-mng-java
   "Rules-engine library used by Java"
   (:use [clojure.math.numeric-tower])
-  (:require [cloj-rules-engine.conds-eval :as conds-eval]
+  (:require [cloj-rules-engine.rules-funcs :as rules-funcs]
+            [cloj-rules-engine.conds-eval :as conds-eval]
             [cloj-rules-engine.logs :as logs]
             [cloj-rules-engine.common :as common]
             [clojure.data.json :as json])
@@ -96,9 +97,10 @@
 ;; FUNCTION: getFiredRules
 (defn -getFiredRules "Returns an ArrayList of the fired rules"
   [this]
-  (java.util.ArrayList.
-    (remove nil?
-      (let [rules-map (common/get-field this :rules)]
-        (for [[k v] rules-map]
-          (when (get-in rules-map [k :fired])
-            {k v}))))))
+  (rules-funcs/get-fired-rules (common/get-field this :rules)))
+;  (java.util.ArrayList.
+;    (remove nil?
+;      (let [rules-map (common/get-field this :rules)]
+;        (for [[k v] rules-map]
+;          (when (get-in rules-map [k :fired])
+;            {k v}))))))

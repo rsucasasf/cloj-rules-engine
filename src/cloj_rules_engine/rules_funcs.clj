@@ -2,9 +2,7 @@
   "Rules-engine functions"
   (:require [cloj-rules-engine.conds-eval :as conds-eval]
             [cloj-rules-engine.logs :as logs]
-            [cloj-rules-engine.common :as common]
-            [clojure.data.json :as json]))
-
+            [cloj-rules-engine.common :as common]))
 
 ;; FUNCTION: update-map-facts
 (defn update-map-facts "Updates values-map (facts) content"
@@ -19,7 +17,6 @@
         (doseq [[k v] @*rules-map]
           (swap! *rules-map assoc-in [k :fired] false))
         true))))
-
 
 ;; FUNCTION: get-rules-actions
 (defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
