@@ -4,19 +4,38 @@
             [cloj-rules-engine.logs :as logs]
             [cloj-rules-engine.common :as common]))
 
-;; FUNCTION: update-map-facts
-(defn update-map-facts "Updates values-map (facts) content"
-  [map-values *rules-map *values-map]
+;; FUNCTION: check-facts-map
+(defn check-facts-map ""
+  [map-values]
   (let [m (common/parse-m map-values)]
     (if-not (every? common/valid? m)
       (do (logs/log-warning "Fact map's values are not valid") false)
-      (do
-        ; reset / update facts
-        (reset! *values-map m)
-        ; fired set to false
-        (doseq [[k v] @*rules-map]
-          (swap! *rules-map assoc-in [k :fired] false))
-        true))))
+      true)))
+
+;; FUNCTION: update-map-facts
+(defn update-map-facts "Updates values-map (facts) content"
+  [map-values *rules-map *values-map]
+  (if (check-facts-map map-values)
+    (do
+      ; reset / update facts
+      (reset! *values-map m)
+      ; fired set to false
+      (doseq [[k v] @*rules-map]
+        (swap! *rules-map assoc-in [k :fired] false))
+      true)
+    false))
+
+
+;  (let [m (common/parse-m map-values)]
+;    (if-not (every? common/valid? m)
+;      (do (logs/log-warning "Fact map's values are not valid") false)
+;      (do
+;        ; reset / update facts
+;        (reset! *values-map m)
+;        ; fired set to false
+;        (doseq [[k v] @*rules-map]
+;          (swap! *rules-map assoc-in [k :fired] false))
+;        true))))
 
 ;; FUNCTION: get-rules-actions
 (defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"

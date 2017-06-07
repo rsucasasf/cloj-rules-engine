@@ -55,16 +55,26 @@
 ;; FUNCTION: updateMapFacts
 (defn -updateMapFacts "Updates values-map (facts) content"
   [this map-values]
-  (let [m (common/parse-m map-values)]
-    (if-not (every? common/valid? m)
-      (do (logs/log-warning "Fact map's values are not valid") false)
-      (do
-        ; reset / update facts
-        (common/set-field this :values m)
-        ; creates new map with fired attribute set to false
-        (common/set-field this :rules
-          (common/add-new-attr-to-map (common/get-field this :rules) :fired false))
-        true))))
+  (if (check-facts-map map-values)
+    (do
+      ; reset / update facts
+      (common/set-field this :values m)
+      ; creates new map with fired attribute set to false
+      (common/set-field this :rules
+        (common/add-new-attr-to-map (common/get-field this :rules) :fired false))
+      true)
+    false))
+
+;  (let [m (common/parse-m map-values)]
+;    (if-not (every? common/valid? m)
+;      (do (logs/log-warning "Fact map's values are not valid") false)
+;      (do
+;        ; reset / update facts
+;        (common/set-field this :values m)
+;        ; creates new map with fired attribute set to false
+;        (common/set-field this :rules
+;          (common/add-new-attr-to-map (common/get-field this :rules) :fired false))
+;        true))))
 
 ;; FUNCTION: getRulesActions
 ;; Returns an ArrayList of Strings, where each of them is an action identifier (:actions ["id" ] ===> "id")
@@ -98,9 +108,3 @@
 (defn -getFiredRules "Returns an ArrayList of the fired rules"
   [this]
   (rules-funcs/get-fired-rules (common/get-field this :rules)))
-;  (java.util.ArrayList.
-;    (remove nil?
-;      (let [rules-map (common/get-field this :rules)]
-;        (for [[k v] rules-map]
-;          (when (get-in rules-map [k :fired])
-;            {k v}))))))
