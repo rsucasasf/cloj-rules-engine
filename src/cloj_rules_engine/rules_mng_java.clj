@@ -55,7 +55,7 @@
 ;; FUNCTION: updateMapFacts
 (defn -updateMapFacts "Updates values-map (facts) content"
   [this map-values]
-  (if (check-facts-map map-values)
+  (if (rules-funcs/check-facts-map map-values)
     (do
       ; reset / update facts
       (common/set-field this :values m)
