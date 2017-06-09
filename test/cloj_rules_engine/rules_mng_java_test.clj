@@ -29,4 +29,4 @@
 ;    (is (= false (not (rules-mng-java/-initializeFromJson "" (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))))
 
 
-(run-tests 'cloj-rules-engine.rules-mng-java-test)
+;(run-tests 'cloj-rules-engine.rules-mng-java-test)
