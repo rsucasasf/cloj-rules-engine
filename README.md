@@ -41,6 +41,13 @@
 }
 ```
 
+- Rules with 'probabilities': if condition is satisfied, then the actions have a **probability** of being fired. These probabilities are values between **0** (no chance to be fired) and **1** (will be fired). These actions are evaluated in order. This means that if an action is fired, the rest of the actions are ignored.
+
+```clojure
+:RULE_2 {:cond "(> #A 10)"
+         :actions [{"action-B" 0.5} {"action-C" 0.5}]
+```
+
 - Facts can be expressed via clojure maps (Clojure) or via PersistentArrayMap objects (Java):
 
 ```clojure
@@ -102,6 +109,7 @@ clrules.updateMapFacts(facts_map);
 
   - **initialize-from-json**
 
+  - **get-rules-actions-probs** (**ONLY Rules with 'probabilities'**) valuates rules based on current facts, and return a list (String) of 'fired' actions
 
 ### Things to do / limitations
 
