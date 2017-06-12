@@ -85,6 +85,23 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; FUNCTION:
+;; returns true / false for chances: Example 50% = (chances1 0.5)
+(defn- result-chances "Gets the result of chances 'n', where 0 <= n <= 1"
+  [n]
+  (if (< (rand 1) n) true false))
+
+;; FUNCTION:get-actions-eval
+(defn get-action-chances [m]
+  (loop [mtmp m]
+    (if (= 0 (count mtmp))
+      nil
+      (if (result-chances (val (first (first mtmp))))
+        (key (first (first mtmp)))
+        (recur (rest mtmp))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; MULTIMETHOD FUNCTION: valid?
 ;; Multimethod used to validate maps contents.
 (defmulti valid? (fn [[k v]] (class v)))

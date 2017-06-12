@@ -47,3 +47,12 @@
             (rules-mng/get-rules-actions))
             true)
         false))))
+
+(deftest test-07
+  (testing "Initialize & check rules (clojure mode): "
+    (is
+      (if (rules-mng/initialize "rules-probs.clj")
+        (if (rules-mng/update-map-facts {"#A" "123", "#B" 43, "#C" 1000})
+          (do (rules-mng/get-rules-actions-probs) true)
+          false)
+        false))))
