@@ -52,9 +52,9 @@
 ;  (rules-funcs/get-rules-actions *rules-map *values-map *conds-map))
 
 ;; FUNCTION: get-rules-actions-probs
-(defn get-rules-actions-probs "Returns an ArrayList of Strings, where each of the items is an action identifier"
-  []
-  (rules-funcs/get-rules-actions-probs *rules-map *values-map *conds-map))
+;(defn get-rules-actions-probs "Returns an ArrayList of Strings, where each of the items is an action identifier"
+;  []
+;  (rules-funcs/get-rules-actions-probs *rules-map *values-map *conds-map))
 
 ;; FUNCTION: get-fired-rules
 (defn get-fired-rules "Returns an ArrayList of the fired rules"
@@ -76,6 +76,18 @@
 (defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
   []
   (rules-funcs/get-rules-actions @*rules-map @*values-map @*conds-map set-rule-fired get-rule-actions))
+
+;; FUNCTION: get-rule-action-fired
+(defn- get-rule-action-fired ""
+  [k res-rule-actions]
+  (swap! *rules-map assoc-in [k :action-fired] res-rule-actions))
+
+;; FUNCTION: get-rules-actions-probs
+(defn get-rules-actions-probs "Returns an ArrayList of Strings, where each of the items is an action identifier"
+  []
+  (rules-funcs/get-rules-actions-probs @*rules-map @*values-map @*conds-map set-rule-fired get-rule-action-fired))
+
+
 
 
 ;(initialize "rules.clj")

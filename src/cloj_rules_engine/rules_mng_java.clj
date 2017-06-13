@@ -109,11 +109,11 @@
 ;; Returns an ArrayList of Strings, where each of them is an action identifier (:actions ["id" ] ===> "id")
 (defn -getRulesActions "Returns an ArrayList of Strings, where each of the items is an action identifier"
   [this]
-  (rules-funcs/get-rules-actions2 (common/get-field this :rules)
-                                  (common/get-field this :values)
-                                  (common/get-field this :conds)
-                                  #(set-rule-fired this % (common/get-field this :rules))
-                                  #(get-rule-actions % (common/get-field this :rules))))
+  (rules-funcs/get-rules-actions (common/get-field this :rules)
+                                 (common/get-field this :values)
+                                 (common/get-field this :conds)
+                                 #(set-rule-fired this % (common/get-field this :rules))
+                                 #(get-rule-actions % (common/get-field this :rules))))
 
 ;(try
 ;    (java.util.ArrayList.
