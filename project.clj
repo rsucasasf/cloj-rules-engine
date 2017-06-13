@@ -1,4 +1,4 @@
-(defproject cloj-rules-engine "0.1.2-SNAPSHOT"
+(defproject cloj-rules-engine "0.1.2"
   :description "a very simple rules engine written in Clojure"
   :url "https://github.com/rsucasasf/cloj-rules-engine"
   :license {:name "Eclipse Public License"
