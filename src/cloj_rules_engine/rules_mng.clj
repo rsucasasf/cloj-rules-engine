@@ -18,6 +18,21 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; FUNCTION: set-rule-fired
+(defn- set-rule-fired ""
+  [x]
+  (swap! *rules-map assoc-in [x :fired] true))
+
+;; FUNCTION: get-rule-actions
+(defn- get-rule-actions ""
+  [x]
+  (get-in @*rules-map [x :actions]))
+
+;; FUNCTION: get-rule-action-fired
+(defn- get-rule-action-fired ""
+  [k res-rule-actions]
+  (swap! *rules-map assoc-in [k :action-fired] res-rule-actions))
+
 ;; FUNCTION: initialize
 ;; 'rules-file': rules file
 (defn initialize "Intializes rules and conditions map"
@@ -46,41 +61,15 @@
   [map-values]
   (rules-funcs/update-map-facts map-values *rules-map *values-map))
 
-;; FUNCTION: get-rules-actions
-;(defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
-;  []
-;  (rules-funcs/get-rules-actions *rules-map *values-map *conds-map))
-
-;; FUNCTION: get-rules-actions-probs
-;(defn get-rules-actions-probs "Returns an ArrayList of Strings, where each of the items is an action identifier"
-;  []
-;  (rules-funcs/get-rules-actions-probs *rules-map *values-map *conds-map))
-
 ;; FUNCTION: get-fired-rules
 (defn get-fired-rules "Returns an ArrayList of the fired rules"
   []
-  (rules-funcs/get-fired-rules *rules-map))
-
-
-;; FUNCTION: set-rule-fired
-(defn- set-rule-fired ""
-  [x]
-  (swap! *rules-map assoc-in [x :fired] true))
-
-;; FUNCTION: get-rule-actions
-(defn- get-rule-actions ""
-  [x]
-  (get-in @*rules-map [x :actions]))
+  (rules-funcs/get-fired-rules @*rules-map))
 
 ;; FUNCTION: get-rules-actions
 (defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
   []
   (rules-funcs/get-rules-actions @*rules-map @*values-map @*conds-map set-rule-fired get-rule-actions))
-
-;; FUNCTION: get-rule-action-fired
-(defn- get-rule-action-fired ""
-  [k res-rule-actions]
-  (swap! *rules-map assoc-in [k :action-fired] res-rule-actions))
 
 ;; FUNCTION: get-rules-actions-probs
 (defn get-rules-actions-probs "Returns an ArrayList of Strings, where each of the items is an action identifier"
@@ -89,21 +78,8 @@
 
 
 
-
-;(initialize "rules.clj")
-;(update-map-facts {"#A" "123", "#B" 43, "#C" 1000})
-;(get-rules-actions2)
-;(get-rules-actions)
-
-
-
-;(defn f1 ""
-;  [a b]
-;  (logs/log-info "a: " a ", b: " b))
-
-;(defn f2 ""
-;  [m f]
-;  (for [[k v] m]
-;    (f v)))
-
-;(f2 {:a 123 :b 323} #(f1 "AAA" %))
+(if (initialize "rules-probs.clj")
+  (if (update-map-facts {"#A" "123", "#B" 43, "#C" 1000})
+    (do (get-rules-actions-probs) true)
+    false)
+  false)
