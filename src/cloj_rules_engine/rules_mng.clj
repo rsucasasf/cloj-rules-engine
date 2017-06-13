@@ -75,11 +75,3 @@
 (defn get-rules-actions-probs "Returns an ArrayList of Strings, where each of the items is an action identifier"
   []
   (rules-funcs/get-rules-actions-probs @*rules-map @*values-map @*conds-map set-rule-fired get-rule-action-fired))
-
-
-
-(if (initialize "rules-probs.clj")
-  (if (update-map-facts {"#A" "123", "#B" 43, "#C" 1000})
-    (do (get-rules-actions-probs) true)
-    false)
-  false)
