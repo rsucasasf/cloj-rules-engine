@@ -49,7 +49,7 @@
         false))))
 
 (deftest test-07
-  (testing "Initialize & check rules (clojure mode): "
+  (testing "Initialize & check rules (clojure mode, probs): "
     (is
       (if (rules-mng/initialize "rules-probs.clj")
         (if (rules-mng/update-map-facts {"#A" "123", "#B" 43, "#C" 1000})

@@ -18,25 +18,45 @@
           (swap! *rules-map assoc-in [k :fired] false))
         true))))
 
-;; FUNCTION: get-rules-actions
+;; FUNCTION: get-rules-actions2
 (defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
-  [*rules-map *values-map *conds-map]
+  [rules-map values-map conds-map f-set-rule-fired f-get-rule-actions]
   (try
     (java.util.ArrayList.
       (remove nil?
         (distinct
           (apply
             concat
-              (for [x (conds-eval/eval-conditions (conds-eval/get-current-conds-map @*conds-map @*values-map) @*values-map)]
-                (if-not (get-in @*rules-map [x :fired])
+              (for [x (conds-eval/eval-conditions (conds-eval/get-current-conds-map conds-map values-map) values-map)]
+                (if-not (get-in rules-map [x :fired])
                   (do
-                    (swap! *rules-map assoc-in [x :fired] true) ; rule fired
-                    (get-in @*rules-map [x :actions]))
+                    (f-set-rule-fired x)
+                    (f-get-rule-actions x))
                   (do
                     (logs/log-warning "Rule [" x "] already fired")
                     nil)))))))
     (catch Exception e
       (do (logs/log-exception e) nil))))
+
+;; FUNCTION: get-rules-actions
+;(defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
+;  [*rules-map *values-map *conds-map]
+;  (try
+;    (java.util.ArrayList.
+;      (remove nil?
+;        (distinct
+;          (apply
+;            concat
+;              (for [x (conds-eval/eval-conditions (conds-eval/get-current-conds-map @*conds-map @*values-map) @*values-map)]
+;                (if-not (get-in @*rules-map [x :fired])
+;                  (do
+;                    (swap! *rules-map assoc-in [x :fired] true) ; rule fired
+;                    (get-in @*rules-map [x :actions]))
+;                  (do
+;                    (logs/log-warning "Rule [" x "] already fired")
+;                    nil)))))))
+;    (catch Exception e
+;      (do (logs/log-exception e) nil))))
 
 ;; FUNCTION: get-fired-rules
 (defn get-fired-rules "Returns an ArrayList of the fired rules"

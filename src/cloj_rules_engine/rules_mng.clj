@@ -47,9 +47,9 @@
   (rules-funcs/update-map-facts map-values *rules-map *values-map))
 
 ;; FUNCTION: get-rules-actions
-(defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
-  []
-  (rules-funcs/get-rules-actions *rules-map *values-map *conds-map))
+;(defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
+;  []
+;  (rules-funcs/get-rules-actions *rules-map *values-map *conds-map))
 
 ;; FUNCTION: get-rules-actions-probs
 (defn get-rules-actions-probs "Returns an ArrayList of Strings, where each of the items is an action identifier"
@@ -60,3 +60,38 @@
 (defn get-fired-rules "Returns an ArrayList of the fired rules"
   []
   (rules-funcs/get-fired-rules *rules-map))
+
+
+;; FUNCTION: set-rule-fired
+(defn- set-rule-fired ""
+  [x]
+  (swap! *rules-map assoc-in [x :fired] true))
+
+;; FUNCTION: get-rule-actions
+(defn- get-rule-actions ""
+  [x]
+  (get-in @*rules-map [x :actions]))
+
+;; FUNCTION: get-rules-actions
+(defn get-rules-actions "Returns an ArrayList of Strings, where each of the items is an action identifier"
+  []
+  (rules-funcs/get-rules-actions @*rules-map @*values-map @*conds-map set-rule-fired get-rule-actions))
+
+
+;(initialize "rules.clj")
+;(update-map-facts {"#A" "123", "#B" 43, "#C" 1000})
+;(get-rules-actions2)
+;(get-rules-actions)
+
+
+
+;(defn f1 ""
+;  [a b]
+;  (logs/log-info "a: " a ", b: " b))
+
+;(defn f2 ""
+;  [m f]
+;  (for [[k v] m]
+;    (f v)))
+
+;(f2 {:a 123 :b 323} #(f1 "AAA" %))
