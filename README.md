@@ -10,6 +10,8 @@
 
 - Maven:
 
+*pom.xml*:
+
 ```xml
 <dependency>
   <groupId>clojars.org</groupId>
@@ -18,10 +20,33 @@
 </dependency>
 ```
 
+java code:
+
+```java
+...
+cloj_rules_engine.ClojRules clrules = new cloj_rules_engine.ClojRules();
+...
+clrules.initialize("rules.clj");
+...
+```
+
 - Clojure:
+
+*project.clj*:
 
 ```clojure
 [clojars.org/cloj-rules-engine "0.1.2-SNAPSHOT"]
+```
+
+clojure code:
+
+```clojure
+(ns ...
+  (:require [cloj-rules-engine.rules-mng :as cre]
+            ...))
+...
+(cre/initialize "RULES_PATH")
+...
 ```
 
 -----------------------
