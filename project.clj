@@ -1,4 +1,4 @@
-(defproject cloj-rules-engine "0.1.2"
+(defproject clojars.org/cloj-rules-engine "0.1.2-SNAPSHOT"
   :description "a very simple rules engine written in Clojure"
   :url "https://github.com/rsucasasf/cloj-rules-engine"
   :license {:name "Eclipse Public License"
@@ -14,20 +14,14 @@
                  [org.clojure/data.json "0.2.6"]          ; Eclipse Public License - Version 1.0  https://github.com/clojure/data.json
                  [proto-repl "0.3.1"]]                    ; MIT                                   https://github.com/jasongilman/proto-repl
   :target-path "target/%s"
-  :plugins [[camechis/deploy-uberjar "0.3.0"]
-            [lein-cloverage "1.0.7-SNAPSHOT"]]            ; MIT                                   https://github.com/codecov/example-clojure
+  :plugins [[lein-cloverage "1.0.7-SNAPSHOT"]]            ; MIT                                   https://github.com/codecov/example-clojure
   :profiles {
     :uberjar {:aot :all}
     :dev {:resource-paths ["resources"]
-    ;; jvm configuration
-    :jvm-opts ["-Xmx256M"]}
+    :jvm-opts ["-Xmx256M"]}                               ; JVM configuration
 
-  :lein-release {:deploy-via :clojars :build-uberjar true}
+  :aot [cloj-rules-engine.rules-mng-java]
 
-
-  ;; deploy-repositories
-  ;:deploy-repositories {"releases" {:url "https://oss.sonatype.org/service/local/staging/deploy/maven2/" :creds :gpg}
-  ;                      "snapshots" {:url "https://oss.sonatype.org/content/repositories/snapshots/" :creds :gpg}}
   ;; maven central requirements
   :scm {:url "git@github.com/rsucasasf/cloj-rules-engine.git"}
   :pom-addition [:developers [:developer
