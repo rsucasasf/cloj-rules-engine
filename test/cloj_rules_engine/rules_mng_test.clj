@@ -18,14 +18,18 @@
     (is (not (rules-mng/initialize "rule12s.clj")))))
 
 (deftest test-03
+  (testing "Initialize rules with 'bad' path: "
+    (is (not (rules-mng/initialize "c://rule12s.clj")))))
+
+(deftest test-04
   (testing "Initialize rules from json: "
     (is (rules-mng/initialize-from-json (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))
 
-(deftest test-04
+(deftest test-05
   (testing "Initialize rules from 'bad' json: "
     (is (= false (not (rules-mng/initialize-from-json (json/write-str {:RULE_1 {:cond "(and (< #A 10) (> #B 50))" :actions ["action-A"]}})))))))
 
-(deftest test-05
+(deftest test-06
   (testing "Initialize & check rules (clojure mode): "
     (is
       (if (rules-mng/initialize "rules.clj")
@@ -37,7 +41,7 @@
             (if (> (count res) 0) true false)))
         false))))
 
-(deftest test-06
+(deftest test-07
   (testing "Initialize & check rules (clojure mode): "
     (is
       (if (rules-mng/initialize "rules.clj")
@@ -48,7 +52,7 @@
             true)
         false))))
 
-(deftest test-07
+(deftest test-08
   (testing "Initialize & check rules (clojure mode, probs): "
     (is
       (if (rules-mng/initialize "rules-probs.clj")

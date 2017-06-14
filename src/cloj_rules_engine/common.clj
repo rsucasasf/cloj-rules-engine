@@ -117,19 +117,19 @@
       res-valid?)))
 
 ;; check java.lang.Long values: not allowed
-(defmethod valid? java.lang.Long [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
+;; -NOT USED- (defmethod valid? java.lang.Long [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
 
 ;; check java.lang.Double values: not allowed
-(defmethod valid? java.lang.Double [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
+;; -NOT USED- (defmethod valid? java.lang.Double [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
 
 ;; check string values: not empty allowed
 (defmethod valid? java.lang.String [[_ value]] (is-valid? value #(not (empty? value))))
 
 ;; check string values: not empty allowed
-(defmethod valid? clojure.lang.PersistentVector [[_ value]] true)
+;; -NOT USED- (defmethod valid? clojure.lang.PersistentVector [[_ value]] true)
 
 ;;
-(defmethod valid? nil [_] (do (logs/log-warning "[!] value is nil") false))
+;; -NOT USED- (defmethod valid? nil [_] (do (logs/log-warning "[!] value is nil") false))
 
 ;;  not valid for rest cases
-(defmethod valid? :default [_] (do (logs/log-debug "value: -default- false") false))
+;; -NOT USED- (defmethod valid? :default [_] (do (logs/log-debug "value: -default- false") false))
