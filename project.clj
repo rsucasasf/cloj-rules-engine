@@ -14,7 +14,7 @@
                  [org.clojure/data.json "0.2.6"]          ; Eclipse Public License - Version 1.0  https://github.com/clojure/data.json
                  [proto-repl "0.3.1"]]                    ; MIT                                   https://github.com/jasongilman/proto-repl
   :target-path "target/%s"
-  :plugins [[lein-cloverage "1.0.7-SNAPSHOT"]]            ; MIT                                   https://github.com/codecov/example-clojure
+  :plugins [[lein-cloverage "1.0.9"]]                     ; MIT                                   https://github.com/codecov/example-clojure
   :profiles {
     :uberjar {:aot :all}
     :dev {:resource-paths ["resources"]
