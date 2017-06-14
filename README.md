@@ -115,6 +115,7 @@ clrules.updateMapFacts(facts_map);
 | [data.json](https://github.com/clojure/data.json)   | 0.2.6   | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
 | [proto-repl](https://github.com/jasongilman/proto-repl) | 0.3.1   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 | [math.numeric-tower](https://github.com/clojure/math.numeric-tower/) | 0.0.4 | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
+| [lein-cloverage](https://github.com/cloverage/cloverage) | 1.0.9 | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
 
 - Main methods:
   - **initialize** loads rules map from absolute or relative path. Returns *true* if everything is okay.
