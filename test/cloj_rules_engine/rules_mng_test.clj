@@ -57,6 +57,6 @@
     (is
       (if (rules-mng/initialize "rules-probs.clj")
         (if (rules-mng/update-map-facts {"#A" "123", "#B" 43, "#C" 1000})
-          (do (rules-mng/get-rules-actions-probs) true)
+          (do (rules-mng/get-rules-actions-probs) (rules-mng/get-rules-actions-probs) true)
           false)
         false))))
