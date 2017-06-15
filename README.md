@@ -13,11 +13,20 @@
 *pom.xml*:
 
 ```xml
-<dependency>
-  <groupId>clojars.org</groupId>
-  <artifactId>cloj-rules-engine</artifactId>
-  <version>0.1.2-SNAPSHOT</version>
-</dependency>
+<repositories>
+	<repository>
+		<id>clojars</id>
+		<url>http://clojars.org/repo/</url>
+	</repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>clojars.org</groupId>
+    <artifactId>cloj-rules-engine</artifactId>
+    <version>0.1.2-SNAPSHOT</version>
+  </dependency>
+  ...
 ```
 
 java code:
@@ -54,7 +63,9 @@ clojure code:
 **Table of Contents**
 
 - [Description](#description)
-  - Things to do / limitations
+  - Features
+    - Main methods
+  - Things to do / limitations / tips
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
 - [Complex Rules](#complex-rules)
@@ -69,9 +80,9 @@ clojure code:
 ![Rules Engine](doc/rules-engine.png)
 
 
-**Features**:
+### **Features**:
 
-- Each **rule** has a **condition** (composed of conditional expressions -written in Clojure- that refer to facts), and a set of **actions** that are activated if the condition is satisfied. **Facts** are the data upon which rules operate. The fired actions are a represented as a set of identifiers (strings).
+- Each **rule** has a **condition** (composed of conditional expressions -written in Clojure- that refer to facts), and a set of **actions** that are activated if the condition is satisfied. **Facts** are the data upon which rules operate. The fired actions are a a set of string identifiers.
 
 - Rules are expressed in a simple and easy to read Clojure format ([clojure *maps*](http://www.deadcoderising.com/2015-04-clojure-basics-dealing-wit-maps/))
 
@@ -83,7 +94,7 @@ clojure code:
 }
 ```
 
-- Rules with 'probabilities': if condition is satisfied, then the actions have a **probability** of being fired. These probabilities are values between **0** (no chance to be fired) and **1** (will be fired). These actions are evaluated in order. This means that if an action is fired, the rest of the actions are ignored.
+- Rules with 'probabilities': if condition is satisfied, then the actions have a **probability** of being fired. These probabilities are values between **0** (no chance to be fired - 0%) and **1** (will be fired - 100%). These actions are evaluated in order. This means that if an action is fired, the rest of the actions are ignored.
 
 ```clojure
 :RULE_2 {:cond "(> #A 10)"
@@ -117,7 +128,7 @@ clrules.updateMapFacts(facts_map);
 | [math.numeric-tower](https://github.com/clojure/math.numeric-tower/) | 0.0.4 | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
 | [lein-cloverage](https://github.com/cloverage/cloverage) | 1.0.9 | [![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0) |
 
-- Main methods:
+#### Main methods:
   - **initialize** loads rules map from absolute or relative path. Returns *true* if everything is okay.
 
   ```clojure
@@ -154,37 +165,38 @@ clrules.updateMapFacts(facts_map);
 
   - **get-rules-actions-probs** (**ONLY Rules with 'probabilities'**) valuates rules based on current facts, and return a list (String) of 'fired' actions
 
-### Things to do / limitations
+### Things to do / limitations / tips
 
 - (**RULES DEFINITION**) The set of rules are defined using Clojure syntax => Clojure maps. Parameters / facts have the following formatt: #*FACTNAME*
   - No underscores allowed.
+  - A *hash* (#) before the fact name
   - Regular expression used to validate fact / parameter names: `#"\#[A-Za-z][A-Za-z0-9]*"`
 
 
 - (**RULES EVALUATION**) The rules and facts are evaluated following the steps of the next example:
 
-1. In the example we have 2 facts or parameters: *#A* and *#B*
+  1. In this example we have 2 facts or parameters: *#A* and *#B*
 
-2. Rules conditions:
+  2. First, we create a new file to define the rules conditions:
 
-```clojure
-:RULE_1 {:cond "(and (< #A 10) (> #B 50))"
-         :actions ["action-1"]}
-```
+  ```clojure
+  :RULE_1 {:cond "(and (< #A 10) (> #B 50))"
+           :actions ["action-1"]}
+  ```
 
-3. Facts are set or updated
+  3. Then, when using the library, we set or update the facts
 
-```clojure
-(update-map-facts {"#A" 33, "#B" 66}))
-```
+  ```clojure
+  (update-map-facts {"#A" 33, "#B" 66}))
+  ```
 
-4. Rules conditions are transformed to clojure syntax in the following way:
+  4. After the new facts' values have been updated, the rules conditions are transformed to clojure syntax in the following way:
 
-```clojure
-(when (and (< 33 10) (> 66 50)) :RULE_1)
-```
+  ```clojure
+  (when (and (< 33 10) (> 66 50)) :RULE_1)
+  ```
 
-5. If condition is satisfied (using clojure *eval* function inside **get-rules-actions** method), rule is tagged as fired
+  5. Finally, if condition is satisfied (using clojure *eval* function inside **get-rules-actions** method), the rule is tagged as fired
 
 
 - (**RULES DEFINITION**) Conditions are clojure expressions surrounded by quotes.
