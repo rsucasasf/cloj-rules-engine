@@ -20,8 +20,6 @@
     :dev {:resource-paths ["resources"]
     :jvm-opts ["-Xmx256M"]}                               ; JVM configuration
 
-  :aot [cloj-rules-engine.rules-mng-java]
-
   ;; maven central requirements
   :scm {:url "git@github.com/rsucasasf/cloj-rules-engine.git"}
   :pom-addition [:developers [:developer

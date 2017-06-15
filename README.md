@@ -19,14 +19,14 @@
 		<url>http://clojars.org/repo/</url>
 	</repository>
 </repositories>
+```
 
-<dependencies>
-  <dependency>
-    <groupId>clojars.org</groupId>
-    <artifactId>cloj-rules-engine</artifactId>
-    <version>0.1.2-SNAPSHOT</version>
-  </dependency>
-  ...
+```xml
+<dependency>
+  <groupId>clojars.org</groupId>
+  <artifactId>cloj-rules-engine</artifactId>
+  <version>0.1.2-SNAPSHOT</version>
+</dependency>
 ```
 
 java code:
