@@ -5,7 +5,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; FUNCTION:uuid
-(defn- uuid [] "Generates random UUID" (.toString (java.util.UUID/randomUUID)))
+(defn- uuid "Generates random UUID" [] (str (java.util.UUID/randomUUID)))
 
 ;; FUNCTION: replace-map
 ;; Given an input string and a hash-map, returns a new string with all keys in map found in input replaced with the value of the key
@@ -14,7 +14,7 @@
   (try
     (clojure.string/replace
       txt
-      (re-pattern (apply str (interpose "|" (map #(java.util.regex.Pattern/quote %) (keys replacement-map)))))
+      (re-pattern (clojure.string/join "|" (map (fn* [p1__112978#] (java.util.regex.Pattern/quote p1__112978#)) (keys replacement-map))))
       replacement-map)
     (catch Exception e
       (do (logs/log-error "txt=" txt ", replacement-map=" replacement-map) (logs/log-exception e) txt))))
@@ -35,15 +35,15 @@
   "Gets the map resulting from executing get-map-params-cond-map-keys, and check which params are not defined in *values-map.
   It returns a map with only the entries not defined in *values-map."
   [params-keys-cond-map values-map]
-  (let [not-found-keys (apply list (clojure.set/difference (into #{} (keys params-keys-cond-map)) (into #{} (keys values-map))))]
-    (if (= 0 (count not-found-keys))
+  (let [not-found-keys (apply list (clojure.set/difference (set (keys params-keys-cond-map)) (set (keys values-map))))]
+    (if (zero? (count not-found-keys))
       {}
       (loop [m-result         {}
              m-vars-cond-map  params-keys-cond-map]
-        (if (= 0 (count m-vars-cond-map))
+        (if (zero? (count m-vars-cond-map))
           m-result
-          (if (some #(= (first (first m-vars-cond-map)) %) not-found-keys)
-            (recur (assoc m-result (first (first m-vars-cond-map)) (second (first m-vars-cond-map)))
+          (if (some #(= (ffirst m-vars-cond-map) %) not-found-keys)
+            (recur (assoc m-result (ffirst m-vars-cond-map) (second (first m-vars-cond-map)))
                    (rest m-vars-cond-map))
             (recur m-result (rest m-vars-cond-map))))))))
 
@@ -53,7 +53,7 @@
   [conds-map keys-to-remove]
   (loop [m-result   conds-map
          l          (distinct (apply concat (for [[k v] keys-to-remove] v)))]
-    (if (= 0 (count l))
+    (if (zero? (count l))
       m-result
       (recur (dissoc m-result (first l)) (next l)))))
 

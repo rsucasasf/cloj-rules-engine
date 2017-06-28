@@ -14,7 +14,9 @@
                  [org.clojure/data.json "0.2.6"]          ; Eclipse Public License - Version 1.0  https://github.com/clojure/data.json
                  [proto-repl "0.3.1"]]                    ; MIT                                   https://github.com/jasongilman/proto-repl
   :target-path "target/%s"
-  :plugins [[lein-cloverage "1.0.9"]]                     ; Eclipse Public License - Version 1.0  https://github.com/cloverage/cloverage ; https://github.com/codecov/example-clojure
+  :plugins [[lein-cloverage "1.0.9"]                      ; Eclipse Public License - Version 1.0  https://github.com/cloverage/cloverage ; https://github.com/codecov/example-clojure
+            [jonase/eastwood "0.2.4"]                     ; Eclipse Public License "lein eastwood" https://github.com/jonase/eastwood
+            [lein-kibit "0.1.5"]]                         ; Eclipse Public License "lein kibit" "lein kibit --replace --interactive"   https://github.com/jonase/kibit
   :profiles {
     :uberjar {:aot :all}
     :dev {:resource-paths ["resources"]

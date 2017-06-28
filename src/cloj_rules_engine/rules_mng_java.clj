@@ -41,8 +41,7 @@
 
 ;; FUNCTION:-init
 ;; Set defaults
-(defn -init []
-  "store fields: values, conds & rules"
+(defn -init "store fields: values, conds & rules" []
   [[] (atom {:values {}
              :rules {}
              :conds {}})])

@@ -52,10 +52,10 @@
   [initial-map new-attr attr-value]
   (loop [m-res {}
          m-ini initial-map]
-    (if (= 0 (count m-ini))
+    (if (zero? (count m-ini))
       m-res
       (recur
-        (assoc m-res (first (first m-ini)) (assoc (second (first m-ini)) new-attr attr-value))
+        (assoc m-res (ffirst m-ini) (assoc (second (first m-ini)) new-attr attr-value))
         (rest m-ini)))))
 
 ;; FUNCTION: update-value-in-map
@@ -64,14 +64,14 @@
   [initial-map key-to-update sub-key-to-update new-value]
   (loop [m-res {}
          m-ini initial-map]
-    (if (= 0 (count m-ini))
+    (if (zero? (count m-ini))
       m-res
-      (if (= (first (first m-ini)) key-to-update)
+      (if (= (ffirst m-ini) key-to-update)
         (recur
-          (assoc m-res (first (first m-ini)) (assoc (second (first m-ini)) sub-key-to-update new-value))
+          (assoc m-res (ffirst m-ini) (assoc (second (first m-ini)) sub-key-to-update new-value))
           (rest m-ini))
         (recur
-          (assoc m-res (first (first m-ini)) (second (first m-ini)))
+          (assoc m-res (ffirst m-ini) (second (first m-ini)))
           (rest m-ini))))))
 
 ;; FUNCTION: parse-m
@@ -94,11 +94,7 @@
 ;; FUNCTION:get-actions-eval
 (defn get-action-chances [m]
   (loop [mtmp m]
-    (if (= 0 (count mtmp))
-      nil
-      (if (result-chances (val (first (first mtmp))))
-        (key (first (first mtmp)))
-        (recur (rest mtmp))))))
+    (when-not (zero? (count mtmp)) (if (result-chances (val (ffirst mtmp))) (key (ffirst mtmp)) (recur (rest mtmp))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -109,12 +105,7 @@
 ;; FUNCTION: is-valid?
 (defn- is-valid? "Checks if 'f' returns true or false"
   [value f]
-  (let [res-valid? (f)]
-    (do
-      (logs/log-debug ">> value= " value ", valid?=" res-valid?)
-      (when-not res-valid?
-        (logs/log-warning "[!] value= " value ", valid?=" res-valid?))
-      res-valid?)))
+  (let [res-valid? (f)] (logs/log-debug ">> value= " value ", valid?=" res-valid?) (when-not res-valid? (logs/log-warning "[!] value= " value ", valid?=" res-valid?)) res-valid?))
 
 ;; check java.lang.Long values: not allowed
 ;; -NOT USED- (defmethod valid? java.lang.Long [[_ value]] (do (logs/log-warning "[!] value is Numeric: " value) false))
